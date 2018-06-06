@@ -11,7 +11,7 @@ NA="<td align=center><img src=no.png></td>"
 
 #要求2个参数，第一个参数是站点名字，第二个参数是输出文件名
 if [ ! $# -eq 2 ]; then
-	echo I need www.site.com & outpufile.txt 
+	echo I need www.site.com and outpufile.txt 
 	exit
 fi
 
@@ -46,7 +46,7 @@ fi
 
 #检查https是否可以访问
 echo check https
-curl -m 4 -i -k https://$1  2>/dev/null | head -1 | grep HTTP
+curl -m 10 -i -k https://$1  2>/dev/null | head -1 | grep HTTP
 retcode=$?
 if [ $retcode -eq 0 ]; then
 	echo https OK
