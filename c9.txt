@@ -1,0 +1,9 @@
+中国科学技术大学 www.ustc.edu.cn
+北京大学 www.pku.edu.cn
+清华大学 www.tsinghua.edu.cn
+复旦大学 www.fudan.edu.cn
+上海交通大学 www.sjtu.edu.cn
+南京大学 www.nju.edu.cn
+浙江大学 www.zju.edu.cn
+哈尔滨工业大学 www.hit.edu.cn
+西安交通大学 www.sjtu.edu.cn
