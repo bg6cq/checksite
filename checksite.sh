@@ -38,7 +38,7 @@ else
 		echo IPv6 OK
 		echo $OK >> $2
 	else
-		echo IPv6 http error
+		echo IPv6 http N/A
 		echo $NA >> $2
 	fi
 
@@ -52,7 +52,7 @@ if [ $retcode -eq 0 ]; then
 	echo https OK
 	echo $OK >> $2
 else
-	echo https error
+	echo https N/A
 	echo $NA >> $2
 fi
 
@@ -65,7 +65,7 @@ if [ $retcode -eq 0 ]; then
 	echo http/2 OK
 	echo $OK >> $2
 else
-	echo http/ error
+	echo http/2 N/A 
 	echo $NA >> $2
 fi
 
