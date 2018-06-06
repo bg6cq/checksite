@@ -11,7 +11,7 @@ echo "<p>" >> nindex.html
 
 echo "国际知名高校对比<p>" >> nindex.html
 echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>SSL</th><th>HTTP/2</th></tr>" >> nindex.html
+echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
 
 cat topu.txt | while read univ site; do 
 	echo 
@@ -27,7 +27,7 @@ echo "</table>" >> nindex.html
 
 echo "<p>国内C9高校对比<p>" >> nindex.html
 echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>SSL</th><th>HTTP/2</th></tr>" >> nindex.html
+echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
 
 cat c9.txt | while read univ site; do 
 	echo 
@@ -45,7 +45,7 @@ echo "</table>" >> nindex.html
 echo "<p>国内其他高校对比<p>" >> nindex.html
 echo "如果想出现在这里，欢迎PR<p>" >> nindex.html
 echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>SSL</th><th>HTTP/2</th></tr>" >> nindex.html
+echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
 
 cat cu.txt | while read univ site; do 
 	echo 
