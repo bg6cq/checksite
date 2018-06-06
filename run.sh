@@ -1,6 +1,9 @@
 #!/bin/bash
 
-echo "相关测试代码在<a href=https://github.com/bg6cq/checksite>https://github.com/bg6cq/checksite</a><p>" > index.html
+echo "<html><head>" > index.html
+echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" >> index.html
+echo "</head><body>" >> index.html
+echo "相关测试代码在<a href=https://github.com/bg6cq/checksite>https://github.com/bg6cq/checksite</a><p>" >> index.html
 echo "说明：测试是否支持HTTP/2.0使用的是<a href=https://http2.pro/>https://http2.pro</a>，结果可能与实际不一致<p>" >> index.html
 echo "国际一流高校对比<p>" >> index.html
 echo "<table border=1 cellspacing=0>" >> index.html
