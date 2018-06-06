@@ -9,7 +9,7 @@ echo "测试开始时间：">>nindex.html
 date >> nindex.html
 echo "<p>" >> nindex.html
 
-echo "国际一流高校对比<p>" >> nindex.html
+echo "国际知名高校对比<p>" >> nindex.html
 echo "<table border=1 cellspacing=0>" >> nindex.html
 echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>SSL</th><th>HTTP/2</th></tr>" >> nindex.html
 
