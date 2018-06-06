@@ -6,5 +6,5 @@ Cambridge www.cam.ac.uk
 Oxford www.ox.ac.uk
 UCL www.ucl.ac.uk
 ICL www.imperial.ac.uk
-Chicago www.uchicago.edu.cn
+Chicago www.uchicago.edu
 ETH www.ethz.ch
