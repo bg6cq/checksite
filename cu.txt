@@ -49,7 +49,7 @@
 同济大学	www.tongji.edu.cn
 华东理工大学	www.ecust.edu.cn
 东华大学	www.dhu.edu.cn
-华东师范大学	www.ecnu.edu.cn
+华东师范大学	www6.ecnu.edu.cn
 上海外国语大学	www.shisu.edu.cn
 上海财经大学	www.shufe.edu.cn
 上海大学	www.shu.edu.cn
