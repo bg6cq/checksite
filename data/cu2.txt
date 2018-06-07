@@ -91,6 +91,6 @@
 中国石油大学（北京）	www.cup.edu.cn
 中国石油大学（华东）	www.upc.edu.cn
 宁波大学	www.nbu.edu.cn
-中国科学院大学	www.ustb.edu.cn
+中国科学院大学	www.ucas.edu.cn
 第二军医大学	www.smmu.edu.cn
 第四军医大学	www.fmmu.edu.cn
