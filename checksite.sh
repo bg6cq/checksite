@@ -52,21 +52,24 @@ retcode=$?
 if [ $retcode -eq 0 ]; then
 	echo https OK
 	echo $OK >> $2
+
+	#访问 http2.pro 检查是否支持http/2
+
+	echo check http/2
+	curl -k  https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported
+	retcode=$?
+	if [ $retcode -eq 0 ]; then
+		echo http/2 OK
+		echo $OK >> $2
+	else
+		echo http/2 N/A 
+		echo $NA >> $2
+	fi
+
 else
+# https 无法访问就不再检查http/2，对国外站点可能会有偶尔错误
 	echo https N/A
 	echo $NA >> $2
-fi
-
-#访问 http2.pro 检查是否支持http/2
-
-echo check http/2
-curl -k  https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported
-retcode=$?
-if [ $retcode -eq 0 ]; then
-	echo http/2 OK
-	echo $OK >> $2
-else
-	echo http/2 N/A 
+	echo i will not check http/2
 	echo $NA >> $2
 fi
-
