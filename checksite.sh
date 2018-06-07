@@ -47,7 +47,7 @@ fi
 
 #检查https是否可以访问
 echo check https
-curl -m $TIMEOUT -i -k https://$1  2>/dev/null | head -1 | grep HTTP
+curl -m $TIMEOUT -i https://$1  2>/dev/null | head -1 | grep HTTP
 retcode=$?
 if [ $retcode -eq 0 ]; then
 	echo https OK
@@ -56,7 +56,7 @@ if [ $retcode -eq 0 ]; then
 	#访问 http2.pro 检查是否支持http/2
 
 	echo check http/2
-	curl -k  https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported
+	curl https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported
 	retcode=$?
 	if [ $retcode -eq 0 ]; then
 		echo http/2 OK
