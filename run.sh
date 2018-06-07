@@ -1,84 +1,116 @@
 #!/bin/bash
 
-echo "<html><head>" > nindex.html
-echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" >> nindex.html
-echo "</head><body>" >> nindex.html
-echo "相关测试代码在 <a href=https://github.com/bg6cq/checksite target=_blank>https://github.com/bg6cq/checksite</a><p>" >> nindex.html
-echo "说明：使用 <a href=https://http2.pro/ target=_blank>https://http2.pro</a> 测试是否支持HTTP/2.0<p>" >> nindex.html
-echo "测试开始时间：">>nindex.html
-date >> nindex.html
-echo "<p>" >> nindex.html
+cat header.html > nindex.html
 
-echo "国际知名高校对比<p>" >> nindex.html
-echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
+beginDatetime=`date`
 
-cat topu.txt | while read univ site; do 
+echo '<div class="card">' >> nindex.html
+echo '  <h5 class="card-header">国际知名高校对比</h5>' >> nindex.html
+echo '  <div class="card-body">' >> nindex.html
+echo '    <h5 class="card-title"></h5>' >> nindex.html
+echo '    <p class="card-text">' >> nindex.html
+
+echo "<table border=1 cellspacing=0 id='myTable1' class='display'>" >> nindex.html
+echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
+
+cat data/topu.txt | while read univ site; do 
 	echo 
 	echo $univ $site
-	echo "<tr><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site  tmp.tmp
 	cat tmp.tmp >> nindex.html
 	echo "</tr>" >> nindex.html
 	echo "" >> nindex.html
 done
-echo "</table>" >> nindex.html
+echo "</tbody></table>" >> nindex.html
 
-echo "<p>国内C9高校对比<p>" >> nindex.html
-echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
+echo '    </p>' >> nindex.html
+echo '  </div>' >> nindex.html
+echo '</div>' >> nindex.html
 
-cat c9.txt | while read univ site; do 
+
+echo '<div class="card">' >> nindex.html
+echo '  <h5 class="card-header">国内C9高校对比</h5>' >> nindex.html
+echo '  <div class="card-body">' >> nindex.html
+echo '    <h5 class="card-title"></h5>' >> nindex.html
+echo '    <p class="card-text">' >> nindex.html
+
+echo "<table border=1 cellspacing=0 id='myTable2' class='display'>" >> nindex.html
+echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
+
+cat data/c9.txt | while read univ site; do 
 	echo 
 	echo $univ $site
-	echo "<tr><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site  tmp.tmp
 	cat tmp.tmp >> nindex.html
 	echo "</tr>" >> nindex.html
 	echo "" >> nindex.html
 done
-echo "</table>" >> nindex.html
+echo "</tbody></table>" >> nindex.html
 
+echo '    </p>' >> nindex.html
+echo '  </div>' >> nindex.html
+echo '</div>' >> nindex.html
 
-echo "<p>国内其他985-211高校对比<p>" >> nindex.html
-echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
+echo '<div class="card">' >> nindex.html
+echo '  <h5 class="card-header">国内其他985-211高校对比</h5>' >> nindex.html
+echo '  <div class="card-body">' >> nindex.html
+echo '    <h5 class="card-title"></h5>' >> nindex.html
+echo '    <p class="card-text">' >> nindex.html
 
-cat cu.txt | while read univ site; do 
+echo "<table border=1 cellspacing=0 id='myTable3' class='display'>" >> nindex.html
+echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
+
+cat data/cu.txt | while read univ site; do 
 	echo 
 	echo $univ $site
-	echo "<tr><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site  tmp.tmp
 	cat tmp.tmp >> nindex.html
 	echo "</tr>" >> nindex.html
 	echo "" >> nindex.html
 done
-echo "</table><p>" >> nindex.html
+echo "</tbody></table>" >> nindex.html
 
+echo '    </p>' >> nindex.html
+echo '  </div>' >> nindex.html
+echo '</div>' >> nindex.html
 
-echo "<p>国内其他高校对比<p>" >> nindex.html
-echo "如果想出现在这里，欢迎PR<p>" >> nindex.html
-echo "<table border=1 cellspacing=0>" >> nindex.html
-echo "<th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr>" >> nindex.html
+echo '<div class="card">' >> nindex.html
+echo '  <h5 class="card-header">国内其他高校对比</h5>' >> nindex.html
+echo '  <div class="card-body">' >> nindex.html
+echo '    <h5 class="card-title">如果想出现在这里，欢迎PR</h5>' >> nindex.html
+echo '    <p class="card-text">' >> nindex.html
 
-cat cuo.txt | while read univ site; do 
+echo "<table border=1 cellspacing=0 id='myTable4' class='display'>" >> nindex.html
+echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
+
+cat data/cuo.txt | while read univ site; do 
 	echo 
 	echo $univ $site
-	echo "<tr><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site  tmp.tmp
 	cat tmp.tmp >> nindex.html
 	echo "</tr>" >> nindex.html
 	echo "" >> nindex.html
 done
-echo "</table><p>" >> nindex.html
+echo "</tbody></table>" >> nindex.html
 
-echo "测试结束时间：">>nindex.html
-date >> nindex.html
-echo "<p>" >> nindex.html
+echo '    </p>' >> nindex.html
+echo '  </div>' >> nindex.html
+echo '</div>' >> nindex.html
 
+
+endDatetime=`date`
+
+echo '<script>var beginDatetime = "'$beginDatetime'";</script>' >> nindex.html
+echo '<script>var endDatetime = "'$endDatetime'";</script>' >> nindex.html
+
+cat footer.html >> nindex.html
 
 mv -f nindex.html index.html
