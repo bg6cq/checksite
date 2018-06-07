@@ -65,7 +65,6 @@ if [ $retcode -eq 0 ]; then
 		echo http/2 N/A 
 		echo $NA >> $2
 	fi
-
 else
 # https 无法访问就不再检查http/2，对国外站点可能会有偶尔错误
 	echo https N/A
