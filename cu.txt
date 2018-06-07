@@ -1,6 +1,4 @@
-北京大学	www.pku.edu.cn
 中国人民大学	www.ruc.edu.cn
-清华大学	www.tsinghua.edu.cn
 北京交通大学	www.njtu.edu.cn
 北京工业大学	www.bjut.edu.cn
 北京航空航天大学	www.buaa.edu.cn
@@ -45,13 +43,10 @@
 吉林大学	www.jlu.edu.cn
 延边大学	www.ybu.edu.cn
 东北师范大学	www.nenu.edu.cn
-哈尔滨工业大学	www.hit.edu.cn
 哈尔滨工程大学	www.hrbeu.edu.cn
 东北农业大学	www.neau.edu.cn
 东北林业大学	www.nefu.edu.cn
-复旦大学	www.fudan.edu.cn
 同济大学	www.tongji.edu.cn
-上海交通大学	www.sjtu.edu.cn
 华东理工大学	www.ecust.edu.cn
 东华大学	www.dhu.edu.cn
 华东师范大学	www.ecnu.edu.cn
@@ -63,7 +58,6 @@
 上海体育大学	www.sus.edu.cn
 上海海洋大学	www.shou.edu.cn
 上海中医药大学	www.shutcm.edu.cn
-南京大学	www.nju.edu.cn
 苏州大学	www.suda.edu.cn
 东南大学	www.seu.edu.cn
 南京航空航天大学	www.nuaa.edu.cn
@@ -78,10 +72,8 @@
 南京信息工程大学	www.nuist.edu.cn
 南京中医药大学	www.njutcm.edu.cn
 南京师范大学	www.njnu.edu.cn
-浙江大学	www.zju.edu.cn
 宁波大学	www.nbu.edu.cn
 安徽大学	www.ahu.edu.cn
-中国科学技术大学	www.ustc.edu.cn
 合肥大学	www.hfut.edu.cnch
 厦门大学	www.xmu.edu.cn
 福州大学	www.fzu.edu.cn
@@ -122,7 +114,6 @@
 云南大学	www.ynu.edu.cn
 西藏大学	www.utibet.edu.cn
 西北大学	www.nwu.edu.cn
-西安交通大学	www.xjtu.edu.cn
 西北工业大学	www.nwpu.edu.cn
 西安电子科技大学	www.xidian.edu.cn
 长安大学	www.chd.edu.cn
