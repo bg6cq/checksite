@@ -25,7 +25,7 @@ id=`expr $id + 1`
 cat data/$datafile | while read univ site; do 
 	/bin/echo 
 	/bin/echo $univ $site
-	/bin/echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+	/bin/echo "<tr><td align=center></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site tmp.tmp $timeout
 	cat tmp.tmp >> nindex.html
