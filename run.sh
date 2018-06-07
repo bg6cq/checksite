@@ -20,7 +20,7 @@ cat data/sites.txt | while read title datafile ; do
 /bin/echo -n $id >> nindex.html
 /bin/echo '" class="display">' >> nindex.html
 id=`expr $id + 1`
-/bin/echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th><th>得分</th></tr></thead><tbody>" >> nindex.html
+/bin/echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>" >> nindex.html
 
 cat data/$datafile | while read univ site; do 
 	/bin/echo 
