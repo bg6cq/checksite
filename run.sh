@@ -6,7 +6,7 @@ beginDatetime=`date`
 
 id=1
 
-cat data/sites.txt | while read title datafile ; do
+cat data/sites.txt | while read title datafile timeout; do
 
 /bin/echo '<div class="card">' >> nindex.html
 /bin/echo -n '  <h5 class="card-header">' >> nindex.html
@@ -27,7 +27,7 @@ cat data/$datafile | while read univ site; do
 	/bin/echo $univ $site
 	/bin/echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
-	sh checksite.sh $site  tmp.tmp
+	sh checksite.sh $site tmp.tmp $timeout
 	cat tmp.tmp >> nindex.html
 	/bin/echo "</tr>" >> nindex.html
 	/bin/echo "" >> nindex.html

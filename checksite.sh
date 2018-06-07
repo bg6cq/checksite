@@ -12,11 +12,13 @@ TIMEOUT=4
 
 score=0
 
-#要求2个参数，第一个参数是站点名字，第二个参数是输出文件名
-if [ ! $# -eq 2 ]; then
-	/bin/echo I need www.site.com and outpufile.txt 
+#要求3个参数，第一个参数是站点名字，第二个参数是输出文件名，第三个参数是超时时间
+if [ ! $# -eq 3 ]; then
+	/bin/echo I need www.site.com outpufile.txt timeout
 	exit
 fi
+
+TIMEOUT=$3
 
 #检查是否有IPv6解析
 /bin/echo -n check ipv6" "
