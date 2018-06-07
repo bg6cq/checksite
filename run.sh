@@ -4,112 +4,46 @@ cat header.html > nindex.html
 
 beginDatetime=`date`
 
-echo '<div class="card">' >> nindex.html
-echo '  <h5 class="card-header">国际知名高校对比</h5>' >> nindex.html
-echo '  <div class="card-body">' >> nindex.html
-echo '    <h5 class="card-title"></h5>' >> nindex.html
-echo '    <p class="card-text">' >> nindex.html
+id=1
 
-echo "<table border=1 cellspacing=0 id='myTable1' class='display'>" >> nindex.html
-echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
+cat data/sites.txt | while read title datafile ; do
 
-cat data/topu.txt | while read univ site; do 
-	echo 
-	echo $univ $site
-	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
+/bin/echo '<div class="card">' >> nindex.html
+/bin/echo -n '  <h5 class="card-header">' >> nindex.html
+/bin/echo -n $title >> nindex.html
+/bin/echo '对比</h5>' >> nindex.html
+/bin/echo '  <div class="card-body">' >> nindex.html
+/bin/echo '    <h5 class="card-title"></h5>' >> nindex.html
+/bin/echo '    <p class="card-text">' >> nindex.html
+
+/bin/echo -n '<table border=1 cellspacing=0 id="myTable' >> nindex.html
+/bin/echo -n $id >> nindex.html
+/bin/echo '" class="display">' >> nindex.html
+id=`expr $id + 1`
+/bin/echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th><th>得分</th></tr></thead><tbody>" >> nindex.html
+
+cat data/$datafile | while read univ site; do 
+	/bin/echo 
+	/bin/echo $univ $site
+	/bin/echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	sh checksite.sh $site  tmp.tmp
 	cat tmp.tmp >> nindex.html
-	echo "</tr>" >> nindex.html
-	echo "" >> nindex.html
+	/bin/echo "</tr>" >> nindex.html
+	/bin/echo "" >> nindex.html
 done
-echo "</tbody></table>" >> nindex.html
+/bin/echo "</tbody></table>" >> nindex.html
 
-echo '    </p>' >> nindex.html
-echo '  </div>' >> nindex.html
-echo '</div>' >> nindex.html
+/bin/echo '    </p>' >> nindex.html
+/bin/echo '  </div>' >> nindex.html
+/bin/echo '</div>' >> nindex.html
 
-
-echo '<div class="card">' >> nindex.html
-echo '  <h5 class="card-header">国内C9高校对比</h5>' >> nindex.html
-echo '  <div class="card-body">' >> nindex.html
-echo '    <h5 class="card-title"></h5>' >> nindex.html
-echo '    <p class="card-text">' >> nindex.html
-
-echo "<table border=1 cellspacing=0 id='myTable2' class='display'>" >> nindex.html
-echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
-
-cat data/c9.txt | while read univ site; do 
-	echo 
-	echo $univ $site
-	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
-	> tmp.tmp
-	sh checksite.sh $site  tmp.tmp
-	cat tmp.tmp >> nindex.html
-	echo "</tr>" >> nindex.html
-	echo "" >> nindex.html
 done
-echo "</tbody></table>" >> nindex.html
-
-echo '    </p>' >> nindex.html
-echo '  </div>' >> nindex.html
-echo '</div>' >> nindex.html
-
-echo '<div class="card">' >> nindex.html
-echo '  <h5 class="card-header">国内其他985-211高校对比</h5>' >> nindex.html
-echo '  <div class="card-body">' >> nindex.html
-echo '    <h5 class="card-title"></h5>' >> nindex.html
-echo '    <p class="card-text">' >> nindex.html
-
-echo "<table border=1 cellspacing=0 id='myTable3' class='display'>" >> nindex.html
-echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
-
-cat data/cu.txt | while read univ site; do 
-	echo 
-	echo $univ $site
-	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
-	> tmp.tmp
-	sh checksite.sh $site  tmp.tmp
-	cat tmp.tmp >> nindex.html
-	echo "</tr>" >> nindex.html
-	echo "" >> nindex.html
-done
-echo "</tbody></table>" >> nindex.html
-
-echo '    </p>' >> nindex.html
-echo '  </div>' >> nindex.html
-echo '</div>' >> nindex.html
-
-echo '<div class="card">' >> nindex.html
-echo '  <h5 class="card-header">国内其他高校对比</h5>' >> nindex.html
-echo '  <div class="card-body">' >> nindex.html
-echo '    <h5 class="card-title">如果想出现在这里，欢迎PR</h5>' >> nindex.html
-echo '    <p class="card-text">' >> nindex.html
-
-echo "<table border=1 cellspacing=0 id='myTable4' class='display'>" >> nindex.html
-echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th></tr></thead><tbody>" >> nindex.html
-
-cat data/cuo.txt | while read univ site; do 
-	echo 
-	echo $univ $site
-	echo "<tr><td></td><td>$univ</td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
-	> tmp.tmp
-	sh checksite.sh $site  tmp.tmp
-	cat tmp.tmp >> nindex.html
-	echo "</tr>" >> nindex.html
-	echo "" >> nindex.html
-done
-echo "</tbody></table>" >> nindex.html
-
-echo '    </p>' >> nindex.html
-echo '  </div>' >> nindex.html
-echo '</div>' >> nindex.html
-
 
 endDatetime=`date`
 
-echo '<script>var beginDatetime = "'$beginDatetime'";</script>' >> nindex.html
-echo '<script>var endDatetime = "'$endDatetime'";</script>' >> nindex.html
+/bin/echo '<script>var beginDatetime = "'$beginDatetime'";</script>' >> nindex.html
+/bin/echo '<script>var endDatetime = "'$endDatetime'";</script>' >> nindex.html
 
 cat footer.html >> nindex.html
 
