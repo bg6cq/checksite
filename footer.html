@@ -16,7 +16,8 @@
 $(document).ready(function () {
 
     var t = $('#myTable1').DataTable({
-        paging: false
+        paging: false,
+        "order": [[ 8, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -25,7 +26,8 @@ $(document).ready(function () {
     } ).draw();
 
     t = $('#myTable2').DataTable({
-        paging: false
+        paging: false,
+        "order": [[ 8, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -34,7 +36,8 @@ $(document).ready(function () {
     } ).draw();
 
     t = $('#myTable3').DataTable({
-        paging: false
+        paging: false,
+        "order": [[ 8, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -43,7 +46,8 @@ $(document).ready(function () {
     } ).draw();
 
     t = $('#myTable4').DataTable({
-        paging: false
+        paging: false,
+        "order": [[ 8, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -53,7 +57,8 @@ $(document).ready(function () {
 
 
     t = $('#myTable5').DataTable({
-        paging: false
+        paging: false,
+        "order": [[ 8, 'desc' ]]
     });
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
