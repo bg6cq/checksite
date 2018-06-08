@@ -114,10 +114,13 @@ else
 	/bin/echo -n $NA >> $2
 fi
 
-if [ -f addon/$1 ]; then
-	addon=`cat addon/$1`
-	score=`expr  $addon + $score`
+if [ $score -eq 100 ]; then
+	if [ -f addon/$1 ]; then
+		addon=`cat addon/$1`
+		score=`expr  $addon + $score`
+	fi
 fi
+
 /bin/echo -n "<td align=center>$score</td>" >> $2
 
 php log_status.php $1 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
