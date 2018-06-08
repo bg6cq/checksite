@@ -2,6 +2,8 @@
 
 cat header.html > nindex.html
 
+php gen_addon.php
+
 beginDatetime=`date`
 
 id=1
@@ -49,3 +51,5 @@ endDatetime=`date`
 cat footer.html >> nindex.html
 
 mv -f nindex.html index.html
+
+php log_dump.php > log.html
