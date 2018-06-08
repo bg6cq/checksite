@@ -44,7 +44,7 @@
 上海大学	www.shu.edu.cn
 苏州大学	www.suda.edu.cn
 南京航空航天大学	www.nuaa.edu.cn
-南京理工大学	ipv6.njust.edu.cn
+南京理工大学	www.njust6.edu.cn
 中国矿业大学	www.cumt.edu.cn
 南京邮电大学	www.njupt.edu.cn
 河海大学	www.hhu.edu.cn

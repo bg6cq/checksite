@@ -16,7 +16,7 @@ function output_f($v)
 		echo "<td align=center><img src=ok.png></td>";
 	else echo "<td>&nbsp;</td>";
 }
-$q="select hostname from allok_first order by tm desc";
+$q="select hostname from allok_first where hostname like '%.edu.cn' order by tm desc";
 $stmt=$mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($hostname);
