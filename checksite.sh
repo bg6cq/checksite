@@ -95,12 +95,21 @@ if [ $https -eq 1 ]; then
 	#访问 http2.pro 检查是否支持http/2
 
 	/bin/echo -n check http/2" "
-	#curl -m $TIMEOUT --http2 -i https://$1 2> /dev/null | head -1 | grep HTTP/2 > /dev/mull
-	curl https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported > /dev/null
+	curl -m $TIMEOUT --http2 -i https://$1 2> /dev/null | head -1 | grep HTTP/2 > /dev/null
 	retcode=$?
 	if [ $retcode -eq 0 ]; then
-		/bin/echo OK
+		echo curl http2
 		HTTP2=1
+	else 
+		curl https://http2.pro/check?url=https%3A//$1/ 2>/dev/null | grep page_title  | grep Supported > /dev/null
+		retcode=$?
+		if [ $retcode -eq 0 ]; then
+			echo http2.pro 
+			HTTP2=1
+		fi
+	fi
+	if [ $HTTP2 -eq 1 ]; then
+		/bin/echo OK
 		/bin/echo -n $OK >> $2
 		score=`expr $score + 20`
 	else
