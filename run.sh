@@ -20,7 +20,7 @@ cat data/sites.txt | while read title datafile timeout; do
 /bin/echo -n $id >> nindex.html
 /bin/echo '" class="display">' >> nindex.html
 id=`expr $id + 1`
-/bin/echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>" >> nindex.html
+/bin/echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>" >> nindex.html
 
 cat data/$datafile | while read univ site; do 
 	/bin/echo 
@@ -29,8 +29,7 @@ cat data/$datafile | while read univ site; do
 	> tmp.tmp
 	sh checksite.sh $site tmp.tmp $timeout
 	cat tmp.tmp >> nindex.html
-	/bin/echo "</tr>" >> nindex.html
-	/bin/echo "" >> nindex.html
+	/bin/echo  "</tr>" >> nindex.html
 done
 /bin/echo "</tbody></table>" >> nindex.html
 
