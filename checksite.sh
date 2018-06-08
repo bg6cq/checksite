@@ -21,6 +21,12 @@ fi
 
 TIMEOUT=$3
 
+AAAA=0
+IPV6=0
+HTTPSV4=0
+HTTPSV6=0
+HTTP2=0
+
 #检查是否有IPv6解析
 /bin/echo -n check ipv6" "
 host -t aaaa $1 | grep "has IPv6 add" | cut -f5 -d' ' | head -1 > tmp.tmp.1
@@ -33,6 +39,7 @@ if [ -z $ipv6 ]; then
 else
 #检查IPv6是否可以访问
 	/bin/echo -n $1 IPv6 address is: $ipv6" "
+	AAAA=1
 	/bin/echo -n $OK >> $2
 	score=`expr $score + 20`
 	/bin/echo -n check ipv6 http access " "
@@ -40,6 +47,7 @@ else
 	retcode=$?
 	if [ $retcode -eq 0 ]; then
 		/bin/echo IPv6 http OK
+		IPV6=1
 		/bin/echo -n $OK >> $2
 		score=`expr $score + 20`
 	else
@@ -57,6 +65,7 @@ curl -m $TIMEOUT -i -4 https://$1  2>/dev/null | head -1 | grep HTTP > /dev/null
 retcode=$?
 if [ $retcode -eq 0 ]; then
 	/bin/echo httpsv4 OK
+	HTTPSV4=1
 	/bin/echo -n $OK >> $2
 	https=1
 	echo OK
@@ -72,6 +81,7 @@ curl -m $TIMEOUT -i -6 https://$1  2>/dev/null | head -1 | grep HTTP > /dev/null
 retcode=$?
 if [ $retcode -eq 0 ]; then
 	/bin/echo httpsv6 OK
+	HTTPSV6=1
 	/bin/echo -n $OK >> $2
 	https=1
 	echo OK
@@ -91,6 +101,7 @@ if [ $https -eq 1 ]; then
 	retcode=$?
 	if [ $retcode -eq 0 ]; then
 		/bin/echo OK
+		HTTP2=1
 		/bin/echo -n $OK >> $2
 		score=`expr $score + 20`
 	else
@@ -103,3 +114,5 @@ else
 	/bin/echo -n $NA >> $2
 fi
 /bin/echo -n "<td align=center>$score</td>" >> $2
+
+php log_status.php $1 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
