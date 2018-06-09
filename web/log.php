@@ -3,13 +3,13 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="1024, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
 
-    <title>各网站变动历史日志</title>
+    <title>网站测试状态变动历史</title>
   </head>
   <body>
     <div class="container">
@@ -19,7 +19,7 @@
   <div class="card-body">
     <p class="card-text">
 <table border=1 cellspacing=0 id="myTable1" class="display">
-<thead><th>时间</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th></tr></thead><tbody>
+<thead><th>时间</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>
 <?php
 
 $db_host = "localhost";
@@ -38,19 +38,30 @@ function output_f($v)
 		echo "<td align=center><img src=ok.png></td>";
 	else echo "<td>&nbsp;</td>";
 }
-$q="select hostname, tm, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log order by tm desc limit 100";
-$stmt=$mysqli->prepare($q);
+
+if(isset($_REQUEST["h"])) {
+	$h=$_REQUEST["h"];
+	$q="select hostname, tm, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log where hostname=? order by tm desc limit 100";
+	$stmt=$mysqli->prepare($q);
+	$stmt->bind_param("s",$h);
+} else  {
+	$q="select hostname, tm, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log order by tm desc limit 100";
+	$stmt=$mysqli->prepare($q);
+}
 $stmt->execute();
 $stmt->bind_result($hostname, $tm, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2);
 $stmt->store_result();
 while($stmt->fetch()) {	
 	echo "<tr><td>".$tm."</td>";
-	echo "<td>".$hostname."</td>";
+	echo "<td><a href=log.php?h=".$hostname.">".$hostname."</a></td>";
 	output_f($aaaa);
 	output_f($ipv6);
 	output_f($httpsv4);
 	output_f($httpsv6);
 	output_f($http2);
+	echo "<td align=center>";
+	echo ( $aaaa+$ipv6+$httpsv4+$httpsv6+$http2)*20;
+	echo "</td>";
 	echo "</tr>\n";
 }
 $stmt->close();
