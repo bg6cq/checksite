@@ -22,9 +22,10 @@ echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6�
 
 cnt=0
 cat data/$datafile | while read univ site; do 
-	echo 
-	echo $univ $site
 	let cnt++
+	echo 
+	echo -n $cnt" "
+	echo $univ $site
 	echo -n "<tr><td align=center>$cnt</td><td><a href=log.php?h=$site>$univ</a></td><td><a href=http://$site target=_blank>$site</a></td>" >> nindex.html
 	> tmp.tmp
 	bash checksite.sh $site tmp.tmp $timeout

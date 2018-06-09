@@ -12,7 +12,7 @@
 中央财经大学	www.cufe.edu.cn
 对外经济贸易大学	www.uibe.edu.cn
 外交学院	www.cfau.edu.cn
-中国人民公安大学	www.cppsu.edu.cn
+中国人民公安大学	www.ppsuc.edu.cn
 北京体育大学	www.bsu.edu.cn
 中央音乐学院	www.ccom.edu.cn
 中国音乐学院	www.ccmusic.edu.cn
@@ -24,7 +24,7 @@
 天津中医药大学	www.tjutcm.edu.cn
 华北电力大学	www.ncepu.edu.cn
 河北工业大学	www.hebut.edu.cn
-太原理工大学	www2017.tyut.edu.cn
+太原理工大学	www.tyut.edu.cn
 内蒙古大学	www.imu.edu.cn
 辽宁大学	www.lnu.edu.cn
 大连海事大学	www.dlmu.edu.cn
