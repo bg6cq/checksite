@@ -18,11 +18,14 @@ if [ ! $# -eq 3 ]; then
 fi
 
 TIMEOUT=$3
+IPV4=0
 AAAA=0
 IPV6=0
 HTTPSV4=0
 HTTPSV6=0
 HTTP2=0
+
+network-probes/200-http-ipv4.sh http://$1 $TIMEOUT && IPV4=1
 
 #检查是否有IPv6解析
 #检查http IPv6是否可以访问
@@ -39,6 +42,12 @@ if [ $https -eq 1 ]; then
 fi
 
 score=0
+if [ $IPV4 -eq 0 ]; then
+	echo -n $NA >> $2
+else
+	echo -n $OK >> $2
+fi
+
 if [ $AAAA -eq 0 ]; then
 	echo -n $NA >> $2
 else
@@ -83,5 +92,5 @@ fi
 
 echo -n "<td align=center>$score</td>" >> $2
 
-echo $1 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
-php log_status.php $1 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
+echo $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
+php log_status.php $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2

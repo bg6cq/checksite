@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="1024, initial-scale=1, shrink-to-fit=yes">
+    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,7 +19,7 @@
   <div class="card-body">
     <p class="card-text">
 <table border=1 cellspacing=0 id="myTable1" class="display">
-<thead><th>时间</th><th>网站</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>
+<thead><th>时间</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>
 <?php
 
 $db_host = "localhost";
@@ -41,19 +41,20 @@ function output_f($v)
 
 if(isset($_REQUEST["h"])) {
 	$h=$_REQUEST["h"];
-	$q="select hostname, tm, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log where hostname=? order by tm desc limit 100";
+	$q="select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log where hostname=? order by tm desc limit 100";
 	$stmt=$mysqli->prepare($q);
 	$stmt->bind_param("s",$h);
 } else  {
-	$q="select hostname, tm, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log order by tm desc limit 100";
+	$q="select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2 from status_log order by tm desc limit 100";
 	$stmt=$mysqli->prepare($q);
 }
 $stmt->execute();
-$stmt->bind_result($hostname, $tm, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2);
+$stmt->bind_result($hostname, $tm, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2);
 $stmt->store_result();
 while($stmt->fetch()) {	
 	echo "<tr><td>".$tm."</td>";
 	echo "<td><a href=log.php?h=".$hostname.">".$hostname."</a></td>";
+	output_f($ipv4);
 	output_f($aaaa);
 	output_f($ipv6);
 	output_f($httpsv4);

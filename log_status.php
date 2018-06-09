@@ -10,29 +10,29 @@ if(mysqli_connect_error()){
 	echo mysqli_connect_error();
 }
 
-if ($_SERVER['argc']!=7)  {
-	echo  "log_status.php hostname aaaa ipv6 httpsv4 httpsv6 http2\n";
+if ($_SERVER['argc']!=8)  {
+	echo  "log_status.php hostname ipv4 aaaa ipv6 httpsv4 httpsv6 http2\n";
 	exit(0);
 }
 
-function update_last($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2)
+function update_last($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2)
 {
 	global $mysqli;
 	echo "update_last\n";
-	$q="replace into status_last values(?, now(), ?,?,?,?,?)";
+	$q="replace into status_last values(?, now(), ?,?,?,?,?,?)";
 	$stmt=$mysqli->prepare($q);
-	$stmt->bind_param("siiiii",$hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+	$stmt->bind_param("siiiiii",$hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 	$stmt->execute();
 	$stmt->close();
 }
 
-function insert_log($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2)
+function insert_log($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2)
 {
 	global $mysqli;
 	echo "insert_log\n";
-	$q="insert into status_log values(?, now(), ?,?,?,?,?)";
+	$q="insert into status_log values(?, now(), ?,?,?,?,?,?)";
 	$stmt=$mysqli->prepare($q);
-	$stmt->bind_param("siiiii",$hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+	$stmt->bind_param("siiiiii",$hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 	$stmt->execute();
 	$stmt->close();
 }
@@ -60,37 +60,38 @@ function update_allok($hostname)
 }
 	
 $hostname=$_SERVER['argv'][1];
-$aaaa=$_SERVER['argv'][2];
-$ipv6=$_SERVER['argv'][3];
-$httpsv4=$_SERVER['argv'][4];
-$httpsv6=$_SERVER['argv'][5];
-$http2=$_SERVER['argv'][6];
+$ipv4=$_SERVER['argv'][2];
+$aaaa=$_SERVER['argv'][3];
+$ipv6=$_SERVER['argv'][4];
+$httpsv4=$_SERVER['argv'][5];
+$httpsv6=$_SERVER['argv'][6];
+$http2=$_SERVER['argv'][7];
 
 if($aaaa+$ipv6+$httpsv4+$httpsv6+$http2==5)
 	update_allok($hostname);
 
 // 检查status_last 是否有记录
-$q="select aaaa, ipv6, httpsv4, httpsv6, http2 from status_last where hostname=?";
+$q="select ipv4, aaaa, ipv6, httpsv4, httpsv6, http2 from status_last where hostname=?";
 $stmt=$mysqli->prepare($q);
 $stmt->bind_param("s",$hostname);
 $stmt->execute();
-$stmt->bind_result($oldaaaa, $oldipv6, $oldhttpsv4, $oldhttpsv6, $oldhttp2);
+$stmt->bind_result($oldipv4, $oldaaaa, $oldipv6, $oldhttpsv4, $oldhttpsv6, $oldhttp2);
 $stmt->store_result();
 if(!$stmt->fetch()) {	// 第一次记录
 	$stmt->close();
 
-	update_last($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+	update_last($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 
-	insert_log($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+	insert_log($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 
 	exit(0);
 }
 $stmt->close();
 
 // 之前有过记录
-update_last($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+update_last($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 
-if( ($aaaa!=$oldaaaa) || ($ipv6!=$oldipv6) || ($httpsv4!=$oldhttpsv4) || ($httpsv6!=$oldhttpsv6) || ($http2!=$oldhttp2) ) 
-	insert_log($hostname,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
+if( ($ipv4!=$oldipv4) || ($aaaa!=$oldaaaa) || ($ipv6!=$oldipv6) || ($httpsv4!=$oldhttpsv4) || ($httpsv6!=$oldhttpsv6) || ($http2!=$oldhttp2) ) 
+	insert_log($hostname,$ipv4,$aaaa,$ipv6,$httpsv4,$httpsv6,$http2);
 
 ?>

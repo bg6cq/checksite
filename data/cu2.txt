@@ -57,7 +57,7 @@
 南京师范大学	www.njnu.edu.cn
 中国美术学院	www.caa.edu.cn
 安徽大学	www.ahu.edu.cn
-合肥工业大学	www.hfut.edu.cnch
+合肥工业大学	www.hfut.edu.cn
 福州大学	www.fzu.edu.cn
 南昌大学	www.ncu.edu.cn
 河南大学	www.henu.edu.cn
