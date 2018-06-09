@@ -18,7 +18,7 @@ echo "    <p class=\"card-text\">" >> nindex.html
 
 let id++
 echo -n "<table border=1 cellspacing=0 id=\"myTable$id\" class=\"display\">" >> nindex.html
-echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>HTTP/2</th><th>评分</th></tr></thead><tbody>" >> nindex.html
+echo "<thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>" >> nindex.html
 
 cnt=0
 cat data/$datafile | while read univ site; do 

@@ -23,7 +23,8 @@ AAAA=0
 IPV6=0
 HTTPSV4=0
 HTTPSV6=0
-HTTP2=0
+HTTP2V4=0
+HTTP2V6=0
 
 network-probes/200-http-ipv4.sh http://$1 $TIMEOUT && IPV4=1
 
@@ -31,57 +32,61 @@ network-probes/200-http-ipv4.sh http://$1 $TIMEOUT && IPV4=1
 #检查http IPv6是否可以访问
 network-probes/100-dns-aaaa.sh $1 && AAAA=1 && network-probes/200-http-ipv6.sh http://$1 $TIMEOUT && IPV6=1
 
-#检查httpsv4/v6
+#检查httpsv4/v6, http2 v4/v6
 https=0
-network-probes/200-http-ipv4.sh https://$1 $TIMEOUT && HTTPSV4=1 && https=1
-network-probes/200-http-ipv6.sh https://$1 $TIMEOUT && HTTPSV6=1 && https=1
-
-if [ $https -eq 1 ]; then
-#检查http2
-	network-probes/200-http2.sh https://$1 $TIMEOUT && HTTP2=1
-fi
+network-probes/200-http-ipv4.sh https://$1 $TIMEOUT && HTTPSV4=1 && network-probes/200-http2-ipv4.sh https://$1 $TIMEOUT && HTTP2V4=1
+network-probes/200-http-ipv6.sh https://$1 $TIMEOUT && HTTPSV6=1 && network-probes/200-http2-ipv6.sh https://$1 $TIMEOUT && HTTP2V6=1
 
 score=0
 if [ $IPV4 -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
+	let score+=40
 fi
 
 if [ $AAAA -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
-	let score+=20
+	let score+=10
 fi
 
 if [ $IPV6 -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
-	let score+=20
+	let score+=10
 fi
 
 if [ $HTTPSV4 -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
-	let score+=20
+	let score+=10
 fi
 
 if [ $HTTPSV6 -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
-	let score+=20
+	let score+=10
 fi
 
-if [ $HTTP2 -eq 0 ]; then
+if [ $HTTP2V4 -eq 0 ]; then
 	echo -n $NA >> $2
 else
 	echo -n $OK >> $2
-	let score+=20
+	let score+=10
 fi
+
+if [ $HTTP2V6 -eq 0 ]; then
+	echo -n $NA >> $2
+else
+	echo -n $OK >> $2
+	let score+=10
+fi
+
 
 if [ $score -eq 100 ]; then
 	if [ -f addon/$1 ]; then
@@ -92,5 +97,5 @@ fi
 
 echo -n "<td align=center>$score</td>" >> $2
 
-echo $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
-php log_status.php $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2
+echo $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2V4 $HTTP2V6
+php log_status.php $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2V4 $HTTP2V6
