@@ -10,32 +10,38 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/jquery.dataTables.min.js'></script>
+    <script src='//cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js'></script>
 
 <script>
 $(document).ready(function () {
 
     var t = $('#myTable1').DataTable({
         paging: false,
+        fixedHeader: true,
         "order": [[ 10, 'desc' ]]
     });
 
     t = $('#myTable2').DataTable({
         paging: false,
+        fixedHeader: true,
         "order": [[ 10, 'desc' ]]
     });
 
     t = $('#myTable3').DataTable({
         paging: false,
+        fixedHeader: true,
         "order": [[ 10, 'desc' ]]
     });
 
     t = $('#myTable4').DataTable({
         paging: false,
+        fixedHeader: true,
         "order": [[ 10, 'desc' ]]
     });
 
     t = $('#myTable5').DataTable({
         paging: false,
+        fixedHeader: true,
         "order": [[ 10, 'desc' ]]
     });
 
