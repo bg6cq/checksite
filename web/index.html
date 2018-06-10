@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+
+    <title>高校网站HTTP、HTTPS、HTTP/2支持情况</title>
+  </head>
+  <body>
+    <div class="container">
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h2 class="display-6">高校网站HTTP、HTTPS、HTTP/2支持情况</h1>
+    <p class="lead">感谢 <a href=https://github.com/inntran>宋崟川@LinkedIn</a> 和 赵肃波@CERNET 提供学校名单、<a href=https://github.com/haishanzheng>郑海山@厦门大学</a> 美化页面</p>
+    <p class="lead">本测试由 <a href=https://ustcnet.ustc.edu.cn target=_blank>中国科学技术大学网络信息中心</a> 提供，每30分钟运行一次</p>
+    <p class="lead">相关测试代码在 <a href=https://github.com/bg6cq/checksite target=_blank>https://github.com/bg6cq/checksite</a>，建议或意见请联系 james@ustc.edu.cn</p>
+    <p class="lead">各网站的测试状态变化历史 <a href=log.php target=_blank>请点这里</a>，单击学校名可以查看学校的测试状态变化历史</p>
+    <p class="lead">计分规则：IPv4访问40分，其它每项10分，越早通过所有测试，加分越多</p>
+  </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+  测试时间：<span id='beginDatetime'></span> ~ <span id="endDatetime"></span>
+</div>
+<div class="card">
+  <h5 class="card-header">国际知名高校对比</h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable1" class="display"><thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      <tr><td align=center>1</td><td><a href=log.php?h=web.mit.edu>MIT</a></td><td><a href=http://web.mit.edu target=_blank>web.mit.edu</a></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>80</td></tr>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+<div class="card">
+  <h5 class="card-header">九校联盟高校对比</h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable2" class="display"><thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      <tr><td align=center>1</td><td><a href=log.php?h=www.ustc.edu.cn>中国科学技术大学</a></td><td><a href=http://www.ustc.edu.cn target=_blank>www.ustc.edu.cn</a></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center>111</td></tr>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+<div class="card">
+  <h5 class="card-header">一流大学建设高校对比</h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable3" class="display"><thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      <tr><td align=center>1</td><td><a href=log.php?h=www.ruc.edu.cn>中国人民大学</a></td><td><a href=http://www.ruc.edu.cn target=_blank>www.ruc.edu.cn</a></td><td align=center><img src=ok.png></td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center><img src=ok.png></td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>50</td></tr>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+<div class="card">
+  <h5 class="card-header">一流学科建设高校对比</h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable4" class="display"><thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      <tr><td align=center>1</td><td><a href=log.php?h=www.njtu.edu.cn>北京交通大学</a></td><td><a href=http://www.njtu.edu.cn target=_blank>www.njtu.edu.cn</a></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>60</td></tr>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+<div class="card">
+  <h5 class="card-header">其他高校对比</h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable5" class="display"><thead><th></th><th>高校</th><th>网站</th><th>IPv4访问</th><th>IPv6解析</th><th>IPv6访问</th><th>v4 HTTPS</th><th>v6 HTTPS</th><th>v4 HTTP2</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      <tr><td align=center>1</td><td><a href=log.php?h=www.fjut.edu.cn>福建工程学院</a></td><td><a href=http://www.fjut.edu.cn target=_blank>www.fjut.edu.cn</a></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center><img src=ok.png></td><td align=center>&nbsp;</td><td align=center>&nbsp;</td><td align=center>80</td></tr>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+
+<p></p>
+
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src='js/jquery.dataTables.min.js'></script>
+
+<script>
+$(document).ready(function () {
+    $.getJSON("result.json", {random: Math.random()}, function(data) {
+        $('#beginDatetime').text(data.beginDatetime);
+        $('#endDatetime').text(data.endDatetime);
+
+        $.each([1,2,3,4,5], function(nonce, index) {
+            var tableId = 'myTable' + index;
+
+            var resultData = [];
+            $.each(data[tableId], function(key, val) {
+                resultData.push([
+                    val.cnt,
+                    val.hostname,
+                    val.name,
+                    val.ipv4? "<img src=ok.png>": "",
+                    val.aaaa? "<img src=ok.png>": "",
+                    val.ipv6? "<img src=ok.png>": "",
+                    val.httpsv4? "<img src=ok.png>": "",
+                    val.httpsv6? "<img src=ok.png>": "",
+                    val.http2v4? "<img src=ok.png>": "",
+                    val.http2v6? "<img src=ok.png>": "",
+                    val.score
+                ])
+          });
+
+          var t = $('#' + tableId).DataTable({
+              paging: false,
+              "order": [[ 10, 'desc' ]],
+              data: resultData
+          });
+
+        });
+
+
+
+    });
+
+});</script>
+
+  </body>
+</html>
