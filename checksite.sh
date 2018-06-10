@@ -6,6 +6,18 @@
 # 结果是<td>OK</td><td>&nbsp</td>等
 #
 
+#下面几行是为了加速程序的运行，调试时使用
+#echo -n "" > $2
+#echo "         \"ipv4\": \"$IPV4\"," >> $2
+#echo "         \"aaaa\": \"$AAAA\"," >> $2
+#echo "         \"ipv6\": \"$IPV6\"," >> $2
+#echo "         \"httpsv4\": \"$HTTPSV4\"," >> $2
+#echo "         \"httpsv6\": \"$HTTPSV6\"," >> $2
+#echo "         \"http2v4\": \"$HTTP2V4\"," >> $2
+#echo "         \"http2v6\": \"$HTTP2V6\"," >> $2
+#echo "         \"score\": \"$score\"" >> $2
+#exit 0
+
 OK="<td align=center><img src=ok.png></td>"
 #NA="<td align=center><img src=no.png></td>"
 NA="<td align=center>&nbsp;</td>"
@@ -96,6 +108,19 @@ if [ $score -eq 100 ]; then
 fi
 
 echo -n "<td align=center>$score</td>" >> $2
+
+
+#上面的输出到$2的代码都可以删除了，下面这行清空了
+echo -n "" > $2
+echo "         \"ipv4\": \"$IPV4\"," >> $2
+echo "         \"aaaa\": \"$AAAA\"," >> $2
+echo "         \"ipv6\": \"$IPV6\"," >> $2
+echo "         \"httpsv4\": \"$HTTPSV4\"," >> $2
+echo "         \"httpsv6\": \"$HTTPSV6\"," >> $2
+echo "         \"http2v4\": \"$HTTP2V4\"," >> $2
+echo "         \"http2v6\": \"$HTTP2V6\"," >> $2
+echo "         \"score\": \"$score\"" >> $2
+
 
 echo $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2V4 $HTTP2V6
 php log_status.php $1 $IPV4 $AAAA $IPV6 $HTTPSV4 $HTTPSV6 $HTTP2V4 $HTTP2V6
