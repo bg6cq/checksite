@@ -1,0 +1,57 @@
+{
+   "beginDatetime": "abc",
+   "endDatetime": "def",
+   "myTable1": [
+      {
+         "hostname": "web.mit.edu",
+         "name": "MIT",
+         "ipv4": "210.34.0.1",
+         "aaaa": "2001:da8::1",
+         "ipv6": "",
+         "httpsv4": "",
+         "httpsv6": "",
+         "http2v4": "",
+         "http2v6": "",
+         "score": 80
+      },
+      {
+         "hostname": "web.mit.edu",
+         "name": "MIT",
+         "ipv4": "210.34.0.1",
+         "aaaa": "2001:da8::1",
+         "ipv6": "",
+         "httpsv4": "",
+         "httpsv6": "",
+         "http2v4": "",
+         "http2v6": "",
+         "score": 80
+      }
+   ],
+   "myTable2": [
+      {
+         "hostname": "web.mit.edu",
+         "name": "MIT",
+         "ipv4": "210.34.0.1",
+         "aaaa": "2001:da8::1",
+         "ipv6": "",
+         "httpsv4": "",
+         "httpsv6": "",
+         "http2v4": "",
+         "http2v6": "",
+         "score": 80
+      },
+      {
+         "hostname": "web.mit.edu",
+         "name": "MIT",
+         "ipv4": "210.34.0.1",
+         "aaaa": "2001:da8::1",
+         "ipv6": "",
+         "httpsv4": "",
+         "httpsv6": "",
+         "http2v4": "",
+         "http2v6": "",
+         "score": 80
+      }
+   ]
+
+}
