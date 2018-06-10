@@ -33,9 +33,10 @@ network-probes/200-http-ipv4.sh http://$1 $TIMEOUT && IPV4=1
 network-probes/100-dns-aaaa.sh $1 && AAAA=1 && network-probes/200-http-ipv6.sh http://$1 $TIMEOUT && IPV6=1
 
 #检查httpsv4/v6, http2 v4/v6
-https=0
 network-probes/200-http-ipv4.sh https://$1 $TIMEOUT && HTTPSV4=1 && network-probes/200-http2-ipv4.sh https://$1 $TIMEOUT && HTTP2V4=1
-network-probes/200-http-ipv6.sh https://$1 $TIMEOUT && HTTPSV6=1 && network-probes/200-http2-ipv6.sh https://$1 $TIMEOUT && HTTP2V6=1
+if [ $AAAA -eq 1 ]; then
+	network-probes/200-http-ipv6.sh https://$1 $TIMEOUT && HTTPSV6=1 && network-probes/200-http2-ipv6.sh https://$1 $TIMEOUT && HTTP2V6=1
+fi
 
 score=0
 if [ $IPV4 -eq 0 ]; then
