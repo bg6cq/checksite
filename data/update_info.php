@@ -22,11 +22,19 @@ $q="delete from `group`";
 $stmt=$mysqli->prepare($q);
 $stmt->execute();
 $stmt->close();
+$q="delete from `group_site`";
+$stmt=$mysqli->prepare($q);
+$stmt->execute();
+$stmt->close();
+$q="delete from `site`";
+$stmt=$mysqli->prepare($q);
+$stmt->execute();
+$stmt->close();
 
 while (($buffer = fgets($file_group, 4096)) !== false) {
         echo $buffer;
 	$g=preg_split("/[\s,]+/",$buffer);
-	if($g[0]=="#")
+	if($g[0][0]=="#")
 		continue;
 	
 	// insert into group
@@ -37,19 +45,21 @@ while (($buffer = fgets($file_group, 4096)) !== false) {
 	$stmt->close();
 
 	$file_site = fopen($g[2],"r");
+	$cnt=0;
 	while (($buf2 = fgets($file_site, 4096)) !== false) {
         	echo $buf2;
 		$s=preg_split("/[\s,]+/",$buf2);
 		if($s[0]=="#")
 			continue;
 	
+		$cnt++;	
 		// insert into group_site
-		$q="replace into group_site values(?,?)";
+		$q="replace into group_site values(?,?,?)";
 		$stmt=$mysqli->prepare($q);
-		$stmt->bind_param("is",$g[0],$s[1]);
+		$stmt->bind_param("iis",$g[0],$cnt,$s[1]);
 		$stmt->execute();
 		$stmt->close();
-	
+
 		// insert into site
 		$q="replace into site values(?,?)";
 		$stmt=$mysqli->prepare($q);
