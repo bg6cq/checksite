@@ -17,7 +17,7 @@
 
 <div class="table-responsive">
 <table border=1 cellspacing=0 id="myTable1" class="table text-nowrap">
-<thead><th>时间</th><th>网站</th><th>v4访问</th><th>v6解析</th><th>v6访问</th><th>v4HTTPS</th><th>v6HTTPS</th><th>v4HTTP2</th><th>v6HTTP2<th>评分</th></tr></thead><tbody>
+<thead><th>时间</th><th>网站</th><th>v4HTTP</th><th>v4HTTPS</th><th>v4HTTP2</th><th>v6解析</th><th>v6HTTP</th><th>v6HTTPS</th><th>v6HTTP2</th><th>评分</th></tr></thead><tbody>
 <?php
 
 include "db.php";
@@ -45,11 +45,11 @@ while($stmt->fetch()) {
 	echo "<tr><td>".$tm."</td>";
 	echo "<td><a href=log.php?h=".$hostname.">".$hostname."</a></td>";
 	output_f($ipv4);
+	output_f($httpsv4);
+	output_f($http2v4);
 	output_f($aaaa);
 	output_f($ipv6);
-	output_f($httpsv4);
 	output_f($httpsv6);
-	output_f($http2v4);
 	output_f($http2v6);
 	echo "<td align=center>";
 	echo ( $ipv4*4+$aaaa+$ipv6+$httpsv4+$httpsv6+$http2v4+$http2v6)*10;
