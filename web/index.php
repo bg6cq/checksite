@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
+
+    <title>高校网站HTTP、HTTPS、HTTP/2支持情况</title>
+  </head>
+  <body>
+    <div class="container">
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h2 class="display-6">高校网站HTTP、HTTPS、HTTP/2支持情况</h1>
+    <p class="lead"><a href=about.html target=_blank>相关说明</a> <a href=log.php>测试状态变化历史</a></p>
+    <p class="lead">
+<?php
+
+include("db.php");
+
+@$groupid=$_REQUEST["groupid"];
+if($groupid=="")
+	$groupid=2;
+$my_name="";
+
+$q="select id, name from `group` order by id";
+$stmt=$mysqli->prepare($q);
+$stmt->execute();
+$stmt->bind_result($id,$name);
+$stmt->store_result();
+echo "[ ";
+while($stmt->fetch()) {
+	if($groupid==$id)
+		$my_name=$name;
+	if($id!=1) 
+		echo "| ";
+	echo "<a href=index.php?groupid=".$id.">".$name."</a> ";
+}
+echo " ]";
+$stmt->close();
+?>
+</p>
+  </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+  测试时间：<span id="endDatetime"></span>
+</div>
+<div class="card">
+  <h5 class="card-header"><?php echo $my_name;?></h5>  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <table border=1 cellspacing=0 id="myTable" class="display">
+<thead><th></th><th>高校</th><th>网站</th><th>v4 HTTP</th><th>v4 HTTPS</th><th>v4 HTTP2</th><th>v6解析</th><th>v6 HTTP</th><th>v6 HTTPS</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+      </tbody></table>
+    </p>
+  </div>
+</div>
+
+
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src='js/jquery.dataTables.min.js'></script>
+    <script src='//cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js'></script>
+
+<script>
+$(document).ready(function () {
+    $.getJSON("result.json.php<?php echo "?groupid=".$groupid;?>", {random: Math.random()}, function(data) {
+        $('#beginDatetime').text(data.beginDatetime);
+        $('#endDatetime').text(data.endDatetime);
+
+	var resultData = [];
+        $.each(data['myTable'], function(key, val) {
+                resultData.push([
+                    val.cnt,
+                    "<a href=log.php?h=" + val.hostname + ">" + val.name + "</a>",
+                    "<a href=http://" + val.hostname + " target=_blank>" + val.hostname + "</a>",
+                    val.ipv4? "<img src=ok.png>": "",
+                    val.httpsv4? "<img src=ok.png>": "",
+                    val.http2v4? "<img src=ok.png>": "",
+                    val.aaaa? "<img src=ok.png>": "",
+                    val.ipv6? "<img src=ok.png>": "",
+                    val.httpsv6? "<img src=ok.png>": "",
+                    val.http2v6? "<img src=ok.png>": "",
+                    val.score
+                ])
+          });
+
+          var t = $('#myTable').DataTable({
+              paging: false,
+	      fixedHeader: true,
+              "order": [[ 10, 'desc' ]],
+              data: resultData
+          });
+    });
+
+});</script>
+
+  </body>
+</html>

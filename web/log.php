@@ -20,15 +20,7 @@
 <thead><th>时间</th><th>网站</th><th>v4访问</th><th>v6解析</th><th>v6访问</th><th>v4HTTPS</th><th>v6HTTPS</th><th>v4HTTP2</th><th>v6HTTP2<th>评分</th></tr></thead><tbody>
 <?php
 
-$db_host = "localhost";
-$db_user = "root";
-$db_passwd = "";
-$db_dbname = "checksite";
-
-$mysqli = new mysqli($db_host, $db_user, $db_passwd, $db_dbname);
-if(mysqli_connect_error()){
-	echo mysqli_connect_error();
-}
+include "db.php";
 
 function output_f($v)
 {
