@@ -26,37 +26,37 @@ include("db.php");
 
 function get_groupavg($id)
 {
-	global $mysqli;
-	$q="select avg(status_last.ipv4*4+status_last.httpsv4+status_last.http2v4+status_last.aaaa+status_last.ipv6+status_last.httpsv6+status_last.http2v6)*10 from `group` left join group_site on group.id=group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id=?";
-	$stmt=$mysqli->prepare($q);
-	$stmt->bind_param("i",$id);
-	$stmt->execute();
-	$stmt->bind_result($avg);
-	$stmt->store_result();
-	$stmt->fetch();
-	$stmt->close();
-	return sprintf("%.1f",$avg);
+    global $mysqli;
+    $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
+    $stmt = $mysqli->prepare($q);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->bind_result($avg);
+    $stmt->store_result();
+    $stmt->fetch();
+    $stmt->close();
+    return sprintf("%.1f", $avg);
 }
 
-@$groupid=$_REQUEST["groupid"];
-if($groupid=="")
-	$groupid=2;
-$my_name="";
+@$groupid = $_REQUEST["groupid"];
+if($groupid == "")
+    $groupid = 2;
+$my_name = "";
 
 $q="select id, name from `group` order by id";
-$stmt=$mysqli->prepare($q);
+$stmt = $mysqli->prepare($q);
 $stmt->execute();
-$stmt->bind_result($id,$name);
+$stmt->bind_result($id, $name);
 $stmt->store_result();
 echo "[ ";
 while($stmt->fetch()) {
-	if($groupid==$id)
-		$my_name=$name;
-	if($id!=1) 
-		echo "| ";
-	echo "<a href=index.php?groupid=".$id.">".$name."(";
-	echo get_groupavg($id);	
-	echo ")</a> ";
+    if($groupid == $id)
+        $my_name = $name;
+    if($id != 1)
+        echo "| ";
+    echo "<a href=index.php?groupid=$id>$name(";
+    echo get_groupavg($id);
+    echo ")</a> ";
 }
 echo " ]";
 $stmt->close();
@@ -79,7 +79,6 @@ $stmt->close();
   </div>
 </div>
 
-
 </div>
 
     <!-- Optional JavaScript -->
@@ -96,32 +95,33 @@ $(document).ready(function () {
         $('#beginDatetime').text(data.beginDatetime);
         $('#endDatetime').text(data.endDatetime);
 
-	var resultData = [];
+        var resultData = [];
         $.each(data['myTable'], function(key, val) {
-                resultData.push([
-                    val.cnt,
-                    "<a href=log.php?h=" + val.hostname + ">" + val.name + "</a>",
-                    "<a href=http://" + val.hostname + " target=_blank>" + val.hostname + "</a>",
-                    val.ipv4? "<img src=ok.png>": "",
-                    val.httpsv4? "<img src=ok.png>": "",
-                    val.http2v4? "<img src=ok.png>": "",
-                    val.aaaa? "<img src=ok.png>": "",
-                    val.ipv6? "<img src=ok.png>": "",
-                    val.httpsv6? "<img src=ok.png>": "",
-                    val.http2v6? "<img src=ok.png>": "",
-                    val.score
-                ])
-          });
+            resultData.push([
+                val.cnt,
+                "<a href=log.php?h=" + val.hostname + ">" + val.name + "</a>",
+                "<a href=http://" + val.hostname + " target=_blank>" + val.hostname + "</a>",
+                val.ipv4? "<img src=ok.png>": "",
+                val.httpsv4? "<img src=ok.png>": "",
+                val.http2v4? "<img src=ok.png>": "",
+                val.aaaa? "<img src=ok.png>": "",
+                val.ipv6? "<img src=ok.png>": "",
+                val.httpsv6? "<img src=ok.png>": "",
+                val.http2v6? "<img src=ok.png>": "",
+                val.score
+            ])
+        });
 
-          var t = $('#myTable').DataTable({
-              paging: false,
-	      fixedHeader: true,
-              "order": [[ 10, 'desc' ]],
-              data: resultData
-          });
+        var t = $('#myTable').DataTable({
+            paging: false,
+	    fixedHeader: true,
+            "order": [[ 10, 'desc' ]],
+            data: resultData
+        });
     });
 
-});</script>
+});
+</script>
 
   </body>
 </html>
