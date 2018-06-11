@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `allok_first`;
 CREATE TABLE `allok_first` (
   `hostname` varchar(200) NOT NULL,
   `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`hostname`)
+  PRIMARY KEY (`hostname`),
+  KEY `key_tm` (`tm`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,7 +56,8 @@ CREATE TABLE `group_avg_score` (
   `groupid` int(10) NOT NULL,
   `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `score` float NOT NULL,
-  PRIMARY KEY (`groupid`,`tm`)
+  PRIMARY KEY (`groupid`,`tm`),
+  KEY `key_tm` (`tm`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,8 +128,8 @@ CREATE TABLE `status_log` (
   `httpsv6` int(1) NOT NULL,
   `http2v4` int(1) DEFAULT NULL,
   `http2v6` int(1) DEFAULT NULL,
-  KEY `hostname` (`hostname`),
-  KEY `host` (`hostname`,`tm`)
+  KEY `host` (`hostname`,`tm`),
+  KEY `key_tm` (`tm`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -140,4 +142,4 @@ CREATE TABLE `status_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-11 18:52:41
+-- Dump completed on 2018-06-12  6:45:42
