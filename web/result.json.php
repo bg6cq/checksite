@@ -33,13 +33,11 @@ $groupid=$_REQUEST["groupid"];
 if($groupid=="")
 	$groupid=2;
 
-$groupid=intval($groupid);
-
 echo "\"myTable\": [\n";
-$q="select group_site.cnt, site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname=status_last.hostname where group_site.groupid=".$groupid;
+$q="select group_site.cnt, site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname=status_last.hostname where group_site.groupid= ? ";
 $stmt=$mysqli->prepare($q);
+$stmt->bind_param("i",$groupid);
 $stmt->execute();
-//	$stmt->bind_param("i",$groupid);
 $stmt->bind_result($cnt, $hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst=1;

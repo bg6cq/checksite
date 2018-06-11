@@ -12,10 +12,12 @@ echo "groupid ".$groupid."\n";
 
 if($groupid==0) {
 	$q="select group_site.hostname, `group`.timeout from `group` left join group_site on group.id = group_site.groupid";
+	$stmt=$mysqli->prepare($q);
 } else {
-	$q="select group_site.hostname, `group`.timeout from `group` left join group_site on group.id = group_site.groupid where group.id=".$groupid;
+	$q="select group_site.hostname, `group`.timeout from `group` left join group_site on group.id = group_site.groupid where group.id=?";
+	$stmt=$mysqli->prepare($q);
+	$stmt->bind_param("i",$groupid);
 }
-$stmt=$mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($hostname,$timeout);
 $stmt->store_result();
