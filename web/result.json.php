@@ -32,14 +32,23 @@ echo "\"endDatetime\": \"$lasttm\",\n";
 
 $groupid = $_REQUEST["groupid"];
 if($groupid == "")
-    $groupid = 2;
+    $groupid = 0;
 
 echo "\"myTable\": [\n";
-$q = "select group_site.cnt, site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname = status_last.hostname where group_site.groupid = ?";
-$stmt = $mysqli->prepare($q);
-$stmt->bind_param("i", $groupid);
+if ($groupid == 0) {
+    $q = "select site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join status_last on site.hostname = status_last.hostname order by (status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6 ) desc limit 50";
+    $stmt = $mysqli->prepare($q);
+} else {
+    $q = "select group_site.cnt, site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname = status_last.hostname where group_site.groupid = ?";
+    $stmt = $mysqli->prepare($q);
+    $stmt->bind_param("i", $groupid);
+}
 $stmt->execute();
-$stmt->bind_result($cnt, $hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
+if ($groupid == 0) {
+    $cnt = 0;
+    $stmt->bind_result($hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
+} else 
+    $stmt->bind_result($cnt, $hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst = 1;
 while($stmt->fetch()) {
@@ -47,6 +56,8 @@ while($stmt->fetch()) {
         $isfirst=0;
     } else
         echo ",\n";
+    if ($groupid == 0) 
+        $cnt ++;
     echo "{ \"cnt\": ".$cnt.", ";
     echo "\"hostname\": \"$hostname\", ";
     echo "\"name\": \"$name\", ";

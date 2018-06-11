@@ -40,20 +40,19 @@ function get_groupavg($id)
 
 @$groupid = $_REQUEST["groupid"];
 if($groupid == "")
-    $groupid = 2;
-$my_name = "";
+    $groupid = 0;
+$my_name = "所有高校";
 
 $q="select id, name from `group` order by id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($id, $name);
 $stmt->store_result();
-echo "[ ";
+echo "[ <a href=index.php>所有高校</a> ";
 while($stmt->fetch()) {
     if($groupid == $id)
         $my_name = $name;
-    if($id != 1)
-        echo "| ";
+    echo "| ";
     echo "<a href=index.php?groupid=$id>$name(";
     echo get_groupavg($id);
     echo ")</a> ";
@@ -69,7 +68,7 @@ $stmt->close();
   测试时间：<span id="endDatetime"></span>
 </div>
 <div class="card">
-  <h5 class="card-header"><?php echo $my_name;?></h5>  <div class="card-body">
+  <h5 class="card-header"><?php echo $my_name; echo " <a href=log.php?g=$groupid>测试历史</a>"; ?></h5>  <div class="card-body">
     <h5 class="card-title"></h5>
     <p class="card-text">
       <table border=1 cellspacing=0 id="myTable" class="display">
