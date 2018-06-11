@@ -27,9 +27,14 @@ include("db.php");
 function get_groupavg($id)
 {
     global $mysqli;
-    $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
-    $stmt = $mysqli->prepare($q);
-    $stmt->bind_param("i", $id);
+    if($id == 0) {
+        $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from status_last";
+        $stmt = $mysqli->prepare($q);
+    } else {
+        $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
+        $stmt = $mysqli->prepare($q);
+        $stmt->bind_param("i", $id);
+    }
     $stmt->execute();
     $stmt->bind_result($avg);
     $stmt->store_result();
@@ -48,7 +53,9 @@ $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($id, $name);
 $stmt->store_result();
-echo "[ <a href=index.php>所有高校</a> ";
+echo "[ <a href=index.php>所有高校(";
+echo get_groupavg(0);
+echo ")</a> ";
 while($stmt->fetch()) {
     if($groupid == $id)
         $my_name = $name;
