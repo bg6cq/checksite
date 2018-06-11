@@ -24,6 +24,20 @@
 
 include("db.php");
 
+function get_groupavg($id)
+{
+	global $mysqli;
+	$id=intval($id);
+	$q="select avg(status_last.ipv4*4+status_last.httpsv4+status_last.http2v4+status_last.aaaa+status_last.ipv6+status_last.httpsv6+status_last.http2v6)*10 from `group` left join group_site on group.id=group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id=".$id;
+	$stmt=$mysqli->prepare($q);
+	$stmt->execute();
+	$stmt->bind_result($avg);
+	$stmt->store_result();
+	$stmt->fetch();
+	$stmt->close();
+	return sprintf("%.1f",$avg);
+}
+
 @$groupid=$_REQUEST["groupid"];
 if($groupid=="")
 	$groupid=2;
@@ -40,7 +54,9 @@ while($stmt->fetch()) {
 		$my_name=$name;
 	if($id!=1) 
 		echo "| ";
-	echo "<a href=index.php?groupid=".$id.">".$name."</a> ";
+	echo "<a href=index.php?groupid=".$id.">".$name."(";
+	echo get_groupavg($id);	
+	echo ")</a> ";
 }
 echo " ]";
 $stmt->close();
