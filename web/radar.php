@@ -56,7 +56,7 @@ $stmt->close();
            { name: 'v4 HTTP', max: 40},
            { name: 'V4 HTTPS', max: 10},
            { name: 'V4 HTTP2', max: 10},
-           { name: 'V6 AAAAA', max: 10},
+           { name: 'V6 AAAA', max: 10},
            { name: 'v6 HTTP', max: 10},
            { name: 'V6 HTTPS', max: 10},
            { name: 'V6 HTTP2', max: 10}
