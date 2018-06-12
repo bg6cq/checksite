@@ -3,13 +3,24 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+
+<?php
+    // for ipv6.ustc.edu.cn
+    // if request http://ipv6.ustc.edu.cn, redirect to https://ipv6.ustc.edu.cn
+    //
+    if ($_SERVER['SERVER_NAME'] == "ipv6.ustc.edu.cn")
+        if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'http') {
+            echo "<meta http-equiv=\"refresh\" content=\"0; URL=https://ipv6.ustc.edu.cn".$_SERVER['REQUEST_URI']."\">";
+            echo "we support https, please vist <a href=https://ipv6.ustc.edu.cn>https://ipv6.ustc.edu.cn</a>";
+            exit(0);
+        }
+?>
     <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="//cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
-
     <title>高校网站HTTP、HTTPS、HTTP/2支持情况</title>
   </head>
   <body>
@@ -28,10 +39,10 @@ function get_groupavg($id)
 {
     global $mysqli;
     if($id == 0) {
-        $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from status_last";
+        $q = "select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from status_last";
         $stmt = $mysqli->prepare($q);
     } else {
-        $q="select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
+        $q = "select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
         $stmt = $mysqli->prepare($q);
         $stmt->bind_param("i", $id);
     }
@@ -44,11 +55,11 @@ function get_groupavg($id)
 }
 
 @$groupid = $_REQUEST["groupid"];
-if($groupid == "")
+if ($groupid == "")
     $groupid = 0;
 $my_name = "所有高校";
 
-$q="select id, name from `group` order by id";
+$q = "select id, name from `group` order by id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($id, $name);
@@ -56,8 +67,8 @@ $stmt->store_result();
 echo "[ <a href=index.php>所有高校(";
 echo get_groupavg(0);
 echo ")</a> ";
-while($stmt->fetch()) {
-    if($groupid == $id)
+while ($stmt->fetch()) {
+    if ($groupid == $id)
         $my_name = $name;
     echo "| ";
     echo "<a href=index.php?groupid=$id>$name(";
