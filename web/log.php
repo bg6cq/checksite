@@ -24,18 +24,18 @@ include "db.php";
 
 function output_f($v)
 {
-    if($v)
+    if ($v)
         echo "<td align=center><img src=ok.png></td>";
     else echo "<td>&nbsp;</td>";
 }
 
 @$g = $_REQUEST["g"];
 @$h = $_REQUEST["h"];
-if($g != 0) {
+if ($g != 0) {
     $q = "select status_log.hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from `group` left join group_site on `group`.id = group_site.groupid left join status_log on group_site.hostname = status_log.hostname where group.id = ? order by tm desc limit 100";
     $stmt = $mysqli->prepare($q);
     $stmt->bind_param("s", $g);
-} else if( $h != "") {
+} else if ($h != "") {
     $q = "select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from status_log where hostname = ? order by tm desc limit 100";
     $stmt = $mysqli->prepare($q);
     $stmt->bind_param("s", $h);
@@ -46,7 +46,7 @@ if($g != 0) {
 $stmt->execute();
 $stmt->bind_result($hostname, $tm, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 $stmt->store_result();
-while($stmt->fetch()) {	
+while ($stmt->fetch()) {
     echo "<tr><td>$tm</td>";
     echo "<td><a href=log.php?h=$hostname>$hostname</a></td>";
     output_f($ipv4);

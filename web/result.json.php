@@ -31,7 +31,7 @@ $stmt->close();
 echo "\"endDatetime\": \"$lasttm\",\n";
 
 $groupid = $_REQUEST["groupid"];
-if($groupid == "")
+if ($groupid == "")
     $groupid = 0;
 
 echo "\"myTable\": [\n";
@@ -51,9 +51,9 @@ if ($groupid == 0) {
     $stmt->bind_result($cnt, $hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst = 1;
-while($stmt->fetch()) {
-    if($isfirst == 1)  {
-        $isfirst=0;
+while ($stmt->fetch()) {
+    if ($isfirst == 1)  {
+        $isfirst = 0;
     } else
         echo ",\n";
     if ($groupid == 0) 
@@ -70,7 +70,7 @@ while($stmt->fetch()) {
     echo "\"http2v6\": "; echo intval($http2v6); echo ",";
     echo "\"score\": ";
     $score = ($ipv4 * 4 + $httpsv4 + $http2v4 + $aaaa + $ipv6 + $httpsv6 + $http2v6) * 10;
-    if($score == 100)
+    if ($score == 100)
         $score += get_addon($hostname);
     echo $score;
     echo "}";

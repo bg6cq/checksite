@@ -30,7 +30,7 @@
 include "db.php";
 
 @$g = $_REQUEST["g"];
-if($g != 0) {
+if ($g != 0) {
     $q = "select status_log.hostname, count(*) c from `group` left join group_site on `group`.id = group_site.groupid left join status_log on group_site.hostname = status_log.hostname where group.id = ? and (status_log.hostname <>\"\" and status_log.tm > date_sub(now(), interval 7 day)) group by status_log.hostname order by c desc limit 50";
     $stmt = $mysqli->prepare($q);
     $stmt->bind_param("i", $g);
@@ -41,7 +41,7 @@ if($g != 0) {
 $stmt->execute();
 $stmt->bind_result($hostname, $cnt);
 $stmt->store_result();
-while($stmt->fetch()) {	
+while ($stmt->fetch()) {
     echo "<tr>";
     echo "<td><a href=log.php?h=$hostname>$hostname</a></td>";
     echo "<td align=center>$cnt</td>";

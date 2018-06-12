@@ -11,11 +11,6 @@ var dom = document.getElementById("container");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;
-<?php
-
-include("db.php");
-
-?>
 option = {
     title: {
         text: '各组高校对比'
@@ -26,16 +21,19 @@ option = {
        data: [
 <?php
 
+include("db.php");
+
 $q = "select name from `group` order by id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($name);
 $stmt->store_result();
 $isfirst = 1;
-while($stmt->fetch()) {
-    if($isfirst)
-        $isfirst=0;
-    else echo ",";
+while ($stmt->fetch()) {
+    if ($isfirst)
+        $isfirst = 0;
+    else
+        echo ",";
     echo "'$name'";
 }
 $stmt->close();
@@ -83,8 +81,8 @@ $stmt->execute();
 $stmt->bind_result($name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst = 1;
-while($stmt->fetch()) {
-    if($isfirst)
+while ($stmt->fetch()) {
+    if ($isfirst)
         $isfirst=0;
     else
         echo ",\n";
