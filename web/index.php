@@ -75,7 +75,7 @@ $stmt->close();
   测试时间：<span id="endDatetime"></span>
 </div>
 <div class="card">
-  <h5 class="card-header"><?php echo $my_name; echo " <a href=log.php?g=$groupid>测试历史</a>"; ?></h5>  <div class="card-body">
+  <h5 class="card-header"><?php echo $my_name; echo " <a href=log.php?g=$groupid>测试历史</a>"; echo " <a href=unstable.php?g=$groupid>不稳定排行</a>"; ?></h5>  <div class="card-body">
     <h5 class="card-title"></h5>
     <p class="card-text">
       <table border=1 cellspacing=0 id="myTable" class="display">
