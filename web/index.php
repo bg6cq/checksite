@@ -90,7 +90,7 @@ $stmt->close();
     <h5 class="card-title"></h5>
     <p class="card-text">
       <table border=1 cellspacing=0 id="myTable" class="display">
-<thead><th></th><th>高校</th><th>网站</th><th>v4 HTTP</th><th>v4 HTTPS</th><th>v4 HTTP2</th><th>v6解析</th><th>v6 HTTP</th><th>v6 HTTPS</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+<thead><th></th><th>单位</th><th>网站</th><th>v4 HTTP</th><th>v4 HTTPS</th><th>v4 HTTP2</th><th>v6解析</th><th>v6 HTTP</th><th>v6 HTTPS</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
       </tbody></table>
     </p>
   </div>

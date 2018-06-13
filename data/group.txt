@@ -7,3 +7,4 @@
 5 其他高校 cuo.txt 1
 6 安徽省高校 ahu.txt 1
 99 港澳台高校 gat.txt 3
+100 其他行业 other.txt 2
