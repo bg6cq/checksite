@@ -21,14 +21,14 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="//cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
-    <title>高校网站HTTP、HTTPS、HTTP/2支持情况</title>
+    <title>网站HTTP、HTTPS、HTTP/2支持情况</title>
   </head>
   <body>
     <div class="container">
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h2 class="display-6">高校网站HTTP、HTTPS、HTTP/2支持情况</h1>
+    <h2 class="display-6">网站HTTP、HTTPS、HTTP/2支持情况</h1>
     <p class="lead">[ <a href=about.html target=_blank>相关说明</a> | <a href=log.php target=_blank>测试历史</a> | <a href=radar.php target=_blank>分组对比</a> ]</p>
     <p class="lead">
 <?php
@@ -57,14 +57,14 @@ function get_groupavg($id)
 @$groupid = $_REQUEST["groupid"];
 if ($groupid == "")
     $groupid = 0;
-$my_name = "所有高校";
+$my_name = "所有网站";
 
 $q = "select id, name from `group` order by id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($id, $name);
 $stmt->store_result();
-echo "[ <a href=index.php>所有高校(";
+echo "[ <a href=index.php>所有网站(";
 echo get_groupavg(0);
 echo ")</a> ";
 while ($stmt->fetch()) {
@@ -116,8 +116,8 @@ $(document).ready(function () {
         $.each(data['myTable'], function(key, val) {
             resultData.push([
                 val.cnt,
-                "<a href=log.php?h=" + val.hostname + ">" + val.name + "</a>",
-                "<a href=http://" + val.hostname + " target=_blank>" + val.hostname + "</a>",
+                "<a href=http://" + val.hostname + " target=_blank>" + val.name + "</a>",
+                "<a href=log.php?h=" + val.hostname + ">" + val.hostname + "</a>",
                 val.ipv4? "<img src=ok.png>": "",
                 val.httpsv4? "<img src=ok.png>": "",
                 val.http2v4? "<img src=ok.png>": "",

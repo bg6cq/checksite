@@ -13,7 +13,7 @@ var app = {};
 option = null;
 option = {
     title: {
-        text: '各组高校对比'
+        text: '各组对比'
     },
     tooltip: {},
     legend: {
@@ -61,7 +61,7 @@ $stmt->close();
         ]
     },
     series: [{
-        name: '预算 vs 开销（Budget vs spending）',
+        name: '测试得分',
         type: 'radar',
         // areaStyle: {normal: {}},
         data : [
