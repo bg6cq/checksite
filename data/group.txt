@@ -2,8 +2,8 @@
 #
 1 国际知名高校 topu.txt 4
 2 九校联盟高校 c9.txt 1
-3 一流大学建设高校 cu1.txt 1
-4 一流学科建设高校 cu2.txt 1
+3 一流大学高校 cu1.txt 1
+4 一流学科高校 cu2.txt 1
 5 其他高校 cuo.txt 1
 6 安徽省高校 ahu.txt 1
 99 港澳台高校 gat.txt 3

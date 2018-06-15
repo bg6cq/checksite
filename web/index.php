@@ -29,7 +29,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h2 class="display-6">网站HTTP、HTTPS、HTTP/2支持情况</h1>
-    <p class="lead">[ <a href=about.html target=_blank>相关说明</a> | <a href=log.php target=_blank>测试历史</a> | <a href=radar.php target=_blank>分组对比</a> ]</p>
+    <p class="lead">[ <a href=about.html target=_blank>相关说明</a> | <a href=log.php target=_blank>测试历史</a> | <a href=radar.php target=_blank>分组对比</a> | <a href=score.php target=_blank>得分变化</a>]</p>
     <p class="lead">
 <?php
 

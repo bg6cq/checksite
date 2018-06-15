@@ -13,13 +13,12 @@ var app = {};
 option = null;
 option = {
     title: {
-        text: '各组对比'
+        text: '各组得分对比'
     },
     tooltip: {},
     legend: {
     //    data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-       data: [
-<?php
+        data: [<?php
 
 include("db.php");
 
@@ -74,7 +73,6 @@ $stmt->close();
         //        name : '实际开销（Actual Spending）'
         //    }
 <?php
-
 $q = "select group.name, avg(status_last.ipv4 * 4) * 10, avg(status_last.httpsv4) * 10, avg(status_last.http2v4) * 10, avg(status_last.aaaa) * 10, avg(status_last.ipv6) * 10,avg(status_last.httpsv6) * 10,avg(status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname group by group.id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
@@ -86,14 +84,15 @@ while ($stmt->fetch()) {
         $isfirst=0;
     else
         echo ",\n";
-    echo "{ value: [$ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6 ],";
-    echo "name: '$name' }";
+    echo "            {value: [$ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6 ], ";
+    echo "name: '$name'}";
 }
 $stmt->close();
 ?>
+
         ]
     }]
-};;
+};
 if (option && typeof option === "object") {
     myChart.setOption(option, true);
 }
