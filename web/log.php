@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=1400, initial-scale=1, shrink-to-fit=yes">
+    <meta name="viewport" content="width=1200, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -14,10 +14,9 @@
   <body>
     <div class="container">
 
-
 <div class="table-responsive">
-<table border=1 cellspacing=0 id="myTable1" class="table text-nowrap">
-<thead><th>时间</th><th>网站</th><th>v4HTTP</th><th>v4HTTPS</th><th>v4HTTP2</th><th>v6解析</th><th>v6HTTP</th><th>v6HTTPS</th><th>v6HTTP2</th><th>评分</th></tr></thead><tbody>
+<table border=1 cellspacing=0 id="myTable1">
+<thead><th>时间</th><th>网站</th><th>v4H</th><th>v4S</th><th>v4H2</th><th>v6解析</th><th>v6H</th><th>v6S</th><th>v6H2</th><th>评分</th></tr></thead><tbody>
 <?php
 
 include "db.php";

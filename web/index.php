@@ -4,27 +4,19 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
 
-<?php
-    // for ipv6.ustc.edu.cn
-    // if request http://ipv6.ustc.edu.cn, redirect to https://ipv6.ustc.edu.cn
-    //
-    if ($_SERVER['SERVER_NAME'] == "ipv6.ustc.edu.cn")
-        if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'http') {
-            echo "<meta http-equiv=\"refresh\" content=\"0; URL=https://ipv6.ustc.edu.cn".$_SERVER['REQUEST_URI']."\">";
-            echo "we support https, please vist <a href=https://ipv6.ustc.edu.cn>https://ipv6.ustc.edu.cn</a>";
-            exit(0);
-        }
-?>
-    <meta name="viewport" content="width=1024, initial-scale=1, shrink-to-fit=yes">
+    <meta name="viewport" content="width=device-width initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="//cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
     <title>网站HTTP、HTTPS、HTTP/2支持情况</title>
+    <style>#wrapper {width: 1200px; margin-left: auto; margin-right: auto;} 
+    </style>
   </head>
   <body>
-    <div class="container">
+  <div id="wrapper">
+    <div class="container-fluid">
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -135,8 +127,27 @@ $(document).ready(function () {
             paging: false,
 	    fixedHeader: true,
             "order": [[ 10, 'desc' ]],
-            data: resultData
+            data: resultData,
+            'columnDefs': [
+                {
+                     "targets": [0,3,4,5,6,7,8,9,10],
+                    "className": "text-center"
+                },
+                {
+                     "targets": 0,
+                     "orderable": false
+                }
+            ]
         });
+        t.on('order.dt search.dt',
+            function() {
+                t.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
     });
 
 });

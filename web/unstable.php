@@ -23,7 +23,7 @@
 </div>
 
 <div class="table-responsive">
-<table border=1 cellspacing=0 id="myTable1" class="table text-nowrap">
+<table border=1 width=500 cellspacing=0 id="myTable1" class="table text-nowrap">
 <thead><th>网站</th><th>状态变动次数</th></tr></thead><tbody>
 <?php
 
