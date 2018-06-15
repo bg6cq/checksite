@@ -79,6 +79,8 @@ echo " ]";
 $stmt->close();
 ?>
 </p>
+   <p class="lead">https://ipv6.ustc.edu.cn 由 <a href=https://ustcnet.ustc.edu.cn target=_blank>中国科学技术大学网络信息中心</a> 提供，每30分钟运行一次</p>
+   <p class="lead">让网站全面支持v4/v6 HTTP、HTTPS、HTTP/2最简单方法是增加Nginx反向代理服务器，<a href=https://github.com/bg6cq/nginx-install target=_blank>https://github.com/bg6cq/nginx-install</a> 有详细安装说明</p>
   </div>
 </div>
 
