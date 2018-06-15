@@ -98,14 +98,17 @@ while ($stmt->fetch()) {
             $isfirst2 = 0;
         else
             echo ",";
-        $dt=date("Y-m-d",strtotime($d."days"));
-        $q="select avg(score) from group_avg_score where groupid= $id and tm >= '".$dt." 00:00:00' and tm <='".$dt." 23:59:59'";
+        $dt = date("Y-m-d", strtotime($d."days"));
+        $ds = $dt." 00:00:00";
+        $de = $dt." 23:59:59";
+        $q = "select avg(score) from group_avg_score where groupid = ? and tm >= ? and tm <= ?";
         $stmt2 = $mysqli->prepare($q);
+        $stmt2->bind_param("iss", $id, $ds, $de);
         $stmt2->execute();
         $stmt2->bind_result($score);
         $stmt2->store_result();
         $stmt2->fetch();
-        if($score!="")
+        if ($score != "")
             echo sprintf("%.1f",$score);
         else echo 0;
         $stmt2->close();
