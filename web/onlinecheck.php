@@ -1,8 +1,5 @@
 <?php
 
-// php checksite.php www.site.com timeout
-// 检查 www.site.com 的IPv4/IPv6 http/https/http2 支持
-
 include ("db.php");
 
 function update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
