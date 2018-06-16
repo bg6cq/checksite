@@ -57,7 +57,7 @@ if (!$got_lock) {
     exit(0);
 }
 
-echo "正在测试 $hostname，请等待测试完成<p>\n";
+echo "正在测试 $hostname"."，请等待测试完成<p>\n";
 ob_flush();
 flush();
 
@@ -86,6 +86,8 @@ ob_flush();
 flush();
 
 echo "<tr><td>IPv4 HTTPS</td><td align=center>";
+ob_flush();
+flush();
 #检查httpsv4/v6, http2 v4/v6
 $msg = system("bash /usr/src/checksite/network-probes/200-http-ipv4.sh https://$hostname $timeout >/dev/null", $retval);
 if ($retval == 0) 
@@ -99,6 +101,8 @@ ob_flush();
 flush();
 
 echo "<tr><td>IPv4 HTTP/2</td><td align=center>";
+ob_flush();
+flush();
 if ($httpsv4 == 1) {
     $msg = system("bash /usr/src/checksite/network-probes/200-http2-ipv4.sh https://$hostname $timeout >/dev/null", $retval);
     if ($retval == 0)
@@ -115,6 +119,8 @@ flush();
 #检查是否有IPv6解析
 #检查http IPv6是否可以访问
 echo "<tr><td>IPv6 AAAA</td><td align=center>";
+ob_flush();
+flush();
 $msg = system("bash /usr/src/checksite/network-probes/100-dns-aaaa.sh $hostname >/dev/null", $retval);
 if ($retval == 0) 
     $aaaa = 1;
@@ -127,6 +133,8 @@ ob_flush();
 flush();
 
 echo "<tr><td>IPv6 HTTP</td><td align=center>";
+ob_flush();
+flush();
 if ($aaaa == 1) {
     $msg = system("bash /usr/src/checksite/network-probes/200-http-ipv6.sh http://$hostname $timeout >/dev/null", $retval);
     if ($retval == 0)
@@ -142,6 +150,8 @@ ob_flush();
 flush();
 
 echo "<tr><td>IPv6 HTTPS</td><td align=center>";
+ob_flush();
+flush();
 if ($aaaa == 1) {
     $msg = system("bash /usr/src/checksite/network-probes/200-http-ipv6.sh https://$hostname $timeout >/dev/null", $retval);
     if ($retval == 0) 
@@ -156,6 +166,8 @@ ob_flush();
 flush();
  
 echo "<tr><td>IPv6 HTTP/2</td><td align=center>";
+ob_flush();
+flush();
 if ($httpsv6 == 1) {
     $msg = system("bash /usr/src/checksite/network-probes/200-http2-ipv6.sh https://$hostname $timeout >/dev/null", $retval);
     if ($retval==0)

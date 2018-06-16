@@ -14,6 +14,7 @@
   <body>
     <div class="container">
 
+   <p class="lead"><form method=get action=onlinecheck.php>请输入主机名：<input name=hostname value="www.ustc.edu.cn"><input type=submit name=cmd value="开始测试" ></form></p>
 <div class="table-responsive">
 <table border=1 cellspacing=0 id="myTable1">
 <thead><th>时间</th><th>网站</th><th>v4H</th><th>v4S</th><th>v4H2</th><th>v6解析</th><th>v6H</th><th>v6S</th><th>v6H2</th><th>评分</th></tr></thead><tbody>
@@ -35,7 +36,7 @@ $stmt->bind_result($hostname, $tm, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $htt
 $stmt->store_result();
 while ($stmt->fetch()) {
     echo "<tr><td>$tm</td>";
-    echo "<td><a href=log.php?h=$hostname>$hostname</a></td>";
+    echo "<td>$hostname</td>";
     output_f($ipv4);
     output_f($httpsv4);
     output_f($http2v4);
