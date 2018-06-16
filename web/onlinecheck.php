@@ -51,6 +51,12 @@ if ($hostname != filter_hostname($hostname)) {
     exit(0);
 }
 
+if ($hostname == "" ) {
+    echo "<form method=get action=onlinecheck.php>";
+    echo "主机名：<input name=hostname value=\"$hostname\"><p>";
+    echo "<input type=submit name=cmd value=\"测试\"></form>";
+    exit(0);
+}
 $timeout = 2;
 
 $fp = fopen("/tmp/lock.txt", "w+");
@@ -202,6 +208,8 @@ echo "测试完成";
 echo "<form method=get action=onlinecheck.php>";
 echo "主机名：<input name=hostname value=\"$hostname\"><p>";
 echo "<input type=submit name=cmd value=\"重新测试\"></form>";
+echo "<p><a href=onlinechecklog.php>最后100条在线测试结果</a></p>";
+echo "<p><a href=index.php>返回https://ipv6.ustc.edu.cn/</a></p>";
 
 if ($ipv4 + $aaaa + $ipv6 + $httpsv4 + $httsv6 + $http2v4 + $http2v6 != 0)
     update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);

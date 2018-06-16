@@ -37,7 +37,6 @@
 池州学院	www.czu.edu.cn
 巢湖学院	www.chu.edu.cn
 安徽工商职业学院	www.ahbvc.edu.cn
-解放军电子工程学院	www.eei.edu.cn
 万博科技职业学院	www.wbc.edu.cn
 安徽省教育厅	www.ahedu.gov.cn
 六安职业技术学院	www.lvtc.edu.cn
