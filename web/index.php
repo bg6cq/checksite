@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="css/fixedHeader.dataTables.min.css">
     <title>网站HTTP、HTTPS、HTTP/2支持情况</title>
     <style>#wrapper {width: 1200px; margin-left: auto; margin-right: auto;} 
     </style>
@@ -99,7 +99,7 @@ $stmt->close();
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/jquery.dataTables.min.js'></script>
-    <script src='//cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js'></script>
+    <script src='js/dataTables.fixedHeader.min.js'></script>
 
 <script>
 $(document).ready(function () {

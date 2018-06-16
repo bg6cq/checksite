@@ -12,27 +12,46 @@ function update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4
     $stmt->close();
 }
 
-function checkvalue($str) {
-    for ($i = 0; $i < strlen($str); $i++) {
-        if (ctype_alnum($str[$i]))
-            continue;
-        if (strchr(".", $str[$i]))
-            continue;
-        if (strchr("_", $str[$i]))
-            continue;
-        if (strchr("-", $str[$i]))
-            continue;
-        echo "$str 中第 $i 字符是非法字符 $str[$i]";
-        exit(0);
+function filter_hostname($name, $domain_only=false) {
+    // entire hostname has a maximum of 253 ASCII characters
+    if (!($len = strlen($name)) || $len > 253
+    // .example.org and localhost- are not allowed
+    || $name[0] == '.' || $name[0] == '-' || $name[ $len - 1 ] == '.' || $name[ $len - 1 ] == '-'
+    // a.de is the shortest possible domain name and needs one dot
+    || ($domain_only && ($len < 4 || strpos($name, '.') === false))
+    // several combinations are not allowed
+    || strpos($name, '..') !== false
+    || strpos($name, '.-') !== false
+    || strpos($name, '-.') !== false
+    // only letters, numbers, dot and hypen are allowed
+/*
+    // a little bit slower
+    || !ctype_alnum(str_replace(array('-', '.'), '', $name))
+*/
+    || preg_match('/[^a-z\d.-]/i', $name)
+    ) {
+        return false;
     }
+    // each label may contain up to 63 characters
+    $offset = 0;
+    while (($pos = strpos($name, '.', $offset)) !== false) {
+        if ($pos - $offset > 63) {
+            return false;
+        }
+        $offset = $pos + 1;
+    }
+    return $name;
 }
 
 header( 'Content-type: text/html; charset=utf-8' );
 
 $hostname = $_REQUEST["hostname"];
-checkvalue($hostname);
+if ($hostname != filter_hostname($hostname)) {
+    echo "输入的主机名 $hostname 格式不正确<p>";
+    exit(0);
+}
 
-$timeout = 4;
+$timeout = 2;
 
 $fp = fopen("/tmp/lock.txt", "w+");
 $count = 0;
@@ -70,7 +89,7 @@ echo "<table width=200 border=1 cellspacing=0><th width=130>测试项目</th><th
 echo "<tr><td>IPv4 HTTP</td><td align=center>";
 //检查httpv4
 $retval = 1;
-$msg = system("bash /usr/src/checksite/network-probes/200-http-ipv4.sh http://$hostname $timeout >/dev/null", $retval);
+$msg = system("bash /usr/src/checksite/network-probes/200-http-ipv4.sh http://$hostname $timeout >/dev/null 2>/dev/null", $retval);
 if ($retval == 0) 
     $ipv4 = 1;
 
@@ -86,7 +105,7 @@ echo "<tr><td>IPv4 HTTPS</td><td align=center>";
 ob_flush();
 flush();
 #检查httpsv4/v6, http2 v4/v6
-$msg = system("bash /usr/src/checksite/network-probes/200-http-ipv4.sh https://$hostname $timeout >/dev/null", $retval);
+$msg = system("bash /usr/src/checksite/network-probes/200-http-ipv4.sh https://$hostname $timeout >/dev/null 2>/dev/null", $retval);
 if ($retval == 0) 
     $httpsv4 = 1;
 if ($httpsv4 == 1) 
@@ -184,6 +203,7 @@ echo "<form method=get action=onlinecheck.php>";
 echo "主机名：<input name=hostname value=\"$hostname\"><p>";
 echo "<input type=submit name=cmd value=\"重新测试\"></form>";
 
-update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+if ($ipv4 + $aaaa + $ipv6 + $httpsv4 + $httsv6 + $http2v4 + $http2v6 != 0)
+    update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
 ?>
