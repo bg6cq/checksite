@@ -55,6 +55,10 @@ function checkvalue($str) {
             continue;
         if (strchr(".", $str[$i]))
             continue;
+        if (strchr("-", $str[$i]))
+            continue;
+        if (strchr("_", $str[$i]))
+            continue;
         echo "$str中第 $i 非法字符 $str[$i]";
         exit(0);
     }
