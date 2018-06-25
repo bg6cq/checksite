@@ -5,20 +5,17 @@
 
 1.1 虚拟机环境
 
-    我使用的是Ubuntu 16.04 LTS，配置好IPv6/v4环境即可。
+使用Ubuntu 18.04 LTS，配置好IPv6/v4环境即可。
    
 ``` 
-
-#get curl which support http/2
-echo "deb http://ppa.launchpad.net/jonathonf/curl/ubuntu xenial main" > /etc/apt/sources.list.d/jonathonf-ubuntu-curl-xenial.list
-apt-get install curl
-
+sudo su -
 apt-get install mariadb-server php-cli apache2  php php-mysql 
 ```
 
 1.2 获取代码
 
 ```
+sudo su -
 cd /usr/src
 git clone https://github.com/bg6cq/checksite.git
 cd checksite
@@ -30,9 +27,12 @@ ln -s /usr/src/checksite/web /var/www/html/checksite
 
 1.3 创建数据库
 ```
-echo "create database checksite;" | mysql
 
-cat /usr/src/checksite/checksite.sql | mysql checksite
+sudo su -
+echo "create database checksite;" | mysql
+echo "UPDATE mysql.user SET authentication_string=PASSWORD(''), plugin='mysql_native_password' WHERE User='root' AND Host='localhost';" | mysql mysql
+echo "FLUSH PRIVILEGES;" | mysql
+cat /usr/src/checksite/sql/checksite.sql | mysql checksite
 ```
 
 1.4 修改要监测的列表，更新数据库
@@ -40,14 +40,18 @@ cat /usr/src/checksite/checksite.sql | mysql checksite
 ```
 cd /usr/checksite/data
 vi group.txt
-...
+根据需要修改
+
 php update_info.php
 ```
 
+使用浏览器访问  http://x.x.x.x/checksite 能看到信息（空结果）
 
 1.5 crontab
 
+创建如下crontab(最后数字是group.txt配置的组编号)
 
+```
 */30 * * * * cd /usr/src/checksite; php checkgroup.php 1
 */30 * * * * cd /usr/src/checksite; php checkgroup.php 2
 */30 * * * * cd /usr/src/checksite; php checkgroup.php 3
@@ -59,3 +63,4 @@ php update_info.php
 */30 * * * * cd /usr/src/checksite; php checkgroup.php 102
 0 7 * * * cd /usr/src/checksite; php checkgroup.php 99
 25,55 * * * * cd /usr/src/checksite; php update_avg_score.php
+```
