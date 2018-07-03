@@ -9,7 +9,8 @@
    
 ``` 
 sudo su -
-apt-get install mariadb-server php-cli apache2  php php-mysql 
+apt-get update
+apt-get install mariadb-server php-cli apache2 php php-mysql 
 ```
 
 1.2 获取代码
@@ -49,7 +50,7 @@ php update_info.php
 
 1.5 crontab
 
-创建如下crontab(最后数字是group.txt配置的组编号)
+使用一个普通用户（对/usr/src/checksite有读权限），创建如下crontab(最后数字是group.txt配置的组编号)
 
 ```
 */30 * * * * cd /usr/src/checksite; php checkgroup.php 1
