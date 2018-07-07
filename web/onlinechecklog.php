@@ -29,14 +29,21 @@ function output_f($v)
     else echo "<td>&nbsp;</td>";
 }
 
-$q = "select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from onlinecheck_log order by tm desc limit 100";
-$stmt = $mysqli->prepare($q);
+$hostname=@$_REQUEST["h"];
+if($hostname!="") {
+	$q = "select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from onlinecheck_log where hostname=? order by tm desc limit 100";
+	$stmt = $mysqli->prepare($q);
+	$stmt->bind_param("s",$hostname);
+} else {
+	$q = "select hostname, tm, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from onlinecheck_log order by tm desc limit 100";
+	$stmt = $mysqli->prepare($q);
+}
 $stmt->execute();
 $stmt->bind_result($hostname, $tm, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 $stmt->store_result();
 while ($stmt->fetch()) {
     echo "<tr><td>$tm</td>";
-    echo "<td>$hostname</td>";
+    echo "<td><a href=onlinechecklog.php?h=$hostname>$hostname</a></td>";
     output_f($ipv4);
     output_f($httpsv4);
     output_f($http2v4);
