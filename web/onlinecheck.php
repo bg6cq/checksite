@@ -2,12 +2,12 @@
 
 include ("db.php");
 
-function update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
+function update_log($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
 {
     global $mysqli;
-    $q = "replace into onlinecheck_log values(?, now(), ?,?,?,?,?,?,?)";
+    $q = "replace into onlinecheck_log values(?, now(), ?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($q);
-    $stmt->bind_param("siiiiiii", $hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    $stmt->bind_param("siiiiiiii", $hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
     $stmt->execute();
     $stmt->close();
 }
@@ -83,6 +83,7 @@ echo "正在测试 $hostname"."，请等待测试完成<p>\n";
 ob_flush();
 flush();
 
+$dnssec = 0;
 $ipv4 = 0;
 $aaaa = 0;
 $ipv6 = 0;
@@ -92,6 +93,21 @@ $http2v4 = 0;
 $http2v6 = 0;
 
 echo "<table width=200 border=1 cellspacing=0><th width=130>测试项目</th><th width=70>结果</th></tr>\n";
+echo "<tr><td>DNSSEC</td><td align=center>";
+//检查DNSSEC
+$retval = 1;
+$msg = system("bash /usr/src/checksite/network-probes/100-dns-dnssec.sh $hostname >/dev/null 2>/dev/null", $retval);
+if ($retval == 0) 
+    $dnssec = 1;
+
+if ($dnssec == 1) 
+    echo "<img src=ok.png>";
+else 
+    echo "<font color=red>Failed!</font>";
+echo "</td></tr>\n";
+ob_flush();
+flush();
+
 echo "<tr><td>IPv4 HTTP</td><td align=center>";
 //检查httpv4
 $retval = 1;
@@ -212,6 +228,6 @@ echo "<p><a href=onlinechecklog.php>最后100条在线测试结果</a></p>";
 echo "<p><a href=index.php>返回https://ipv6.ustc.edu.cn/</a></p>";
 
 if ($ipv4 + $aaaa + $ipv6 + $httpsv4 + $httsv6 + $http2v4 + $http2v6 != 0)
-    update_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    update_log($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
 ?>

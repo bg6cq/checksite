@@ -50,7 +50,8 @@ $stmt->close();
            }
         },
         indicator: [
-           { name: 'v4 HTTP', max: 40},
+           { name: 'DNSSEC', max: 10},
+           { name: 'v4 HTTP', max: 30},
            { name: 'V4 HTTPS', max: 10},
            { name: 'V4 HTTP2', max: 10},
            { name: 'V6 AAAA', max: 10},
@@ -73,10 +74,10 @@ $stmt->close();
         //        name : '实际开销（Actual Spending）'
         //    }
 <?php
-$q = "select group.name, avg(status_last.ipv4 * 4) * 10, avg(status_last.httpsv4) * 10, avg(status_last.http2v4) * 10, avg(status_last.aaaa) * 10, avg(status_last.ipv6) * 10,avg(status_last.httpsv6) * 10,avg(status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname group by group.id";
+$q = "select group.name, avg(status_last.dnssec) * 10, avg(status_last.ipv4 * 3) * 10, avg(status_last.httpsv4) * 10, avg(status_last.http2v4) * 10, avg(status_last.aaaa) * 10, avg(status_last.ipv6) * 10,avg(status_last.httpsv6) * 10,avg(status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname group by group.id";
 $stmt = $mysqli->prepare($q);
 $stmt->execute();
-$stmt->bind_result($name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
+$stmt->bind_result($name, $dnssec, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst = 1;
 while ($stmt->fetch()) {
@@ -84,7 +85,7 @@ while ($stmt->fetch()) {
         $isfirst=0;
     else
         echo ",\n";
-    echo "            {value: [$ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6 ], ";
+    echo "            {value: [$dnssec, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6 ], ";
     echo "name: '$name'}";
 }
 $stmt->close();

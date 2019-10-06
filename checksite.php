@@ -5,24 +5,24 @@
 
 include ("db.php");
 
-function update_last($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
+function update_last($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
 {
     global $mysqli;
     echo "update_last\n";
-    $q = "replace into status_last values(?, now(), ?,?,?,?,?,?,?)";
+    $q = "replace into status_last values(?, now(), ?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($q);
-    $stmt->bind_param("siiiiiii", $hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    $stmt->bind_param("siiiiiiii", $hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
     $stmt->execute();
     $stmt->close();
 }
 
-function insert_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
+function insert_log($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6)
 {
     global $mysqli;
     echo "insert_log\n";
-    $q = "insert into status_log values(?, now(), ?,?,?,?,?,?,?)";
+    $q = "insert into status_log values(?, now(), ?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($q);
-    $stmt->bind_param("siiiiiii", $hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    $stmt->bind_param("siiiiiiii", $hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
     $stmt->execute();
     $stmt->close();
 }
@@ -78,6 +78,7 @@ if ($_SERVER['argc'] > 2)
 
 echo "$hostname $timeout\n";
 
+$dnssec = 0;
 $ipv4 = 0;
 $aaaa = 0;
 $ipv6 = 0;
@@ -85,6 +86,12 @@ $httpsv4 = 0;
 $httpsv6 = 0;
 $http2v4 = 0;
 $http2v6 = 0;
+
+//检查DNSSEC
+$retval = 1;
+$msg = system("bash network-probes/100-dns-dnssec.sh $hostname", $retval);
+if ($retval == 0)
+    $dnssec = 1;
 
 //检查httpv4
 $retval = 1;
@@ -120,35 +127,35 @@ if ($aaaa == 1) {
     }
 }
 
-if ($aaaa + $ipv6 + $httpsv4 + $httpsv6 + $http2v4 + $http2v6 == 6)
+if ($dnssec + $aaaa + $ipv6 + $httpsv4 + $httpsv6 + $http2v4 + $http2v6 == 7)
     update_allok($hostname);
 
-echo ("$ipv4 $httpsv4 $http2v4/$aaaa $ipv6 $httpsv6 $http2v6\n");
+echo ("$dnssec $ipv4 $httpsv4 $http2v4/$aaaa $ipv6 $httpsv6 $http2v6\n");
 
 // 检查status_last 是否有记录
-$q = "select ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from status_last where hostname=?";
+$q = "select dnssec, ipv4, aaaa, ipv6, httpsv4, httpsv6, http2v4, http2v6 from status_last where hostname=?";
 $stmt = $mysqli->prepare($q);
 $stmt->bind_param("s", $hostname);
 $stmt->execute();
-$stmt->bind_result($oldipv4, $oldaaaa, $oldipv6, $oldhttpsv4, $oldhttpsv6, $oldhttp2v4, $oldhttp2v6);
+$stmt->bind_result($olddnssec, $oldipv4, $oldaaaa, $oldipv6, $oldhttpsv4, $oldhttpsv6, $oldhttp2v4, $oldhttp2v6);
 $stmt->store_result();
 if (!$stmt->fetch()) {    // 第一次记录
     $stmt->close();
 
-    update_last($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    update_last($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
-    insert_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    insert_log($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
     exit(0);
 }
 $stmt->close();
 
 // 之前有过记录
-update_last($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+update_last($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
-if (($ipv4 != $oldipv4) || ($aaaa != $oldaaaa) || ($ipv6 != $oldipv6)
+if (($dnssec != $olddnssec) || ($ipv4 != $oldipv4) || ($aaaa != $oldaaaa) || ($ipv6 != $oldipv6)
     || ($httpsv4 != $oldhttpsv4) || ($httpsv6 != $oldhttpsv6)
     || ($http2v4 != $oldhttp2v4) || ($http2v6 != $oldhttp2v6))
-    insert_log($hostname, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
+    insert_log($hostname, $dnssec, $ipv4, $aaaa, $ipv6, $httpsv4, $httpsv6, $http2v4, $http2v6);
 
 ?>

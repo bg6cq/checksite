@@ -36,19 +36,19 @@ if ($groupid == "")
 
 echo "\"myTable\": [\n";
 if ($groupid == 0) {
-    $q = "select site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join status_last on site.hostname = status_last.hostname order by (status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6 ) desc limit 50";
+    $q = "select site.hostname, site.name, status_last.dnssec, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join status_last on site.hostname = status_last.hostname order by (status_last.dnssec + status_last.ipv4 * 3 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6 ) desc limit 50";
     $stmt = $mysqli->prepare($q);
 } else {
-    $q = "select group_site.cnt, site.hostname, site.name, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname = status_last.hostname where group_site.groupid = ?";
+    $q = "select group_site.cnt, site.hostname, site.name, status_last.dnssec, status_last.ipv4, status_last.httpsv4, status_last.http2v4, status_last.aaaa, status_last.ipv6, status_last.httpsv6, status_last.http2v6 from `site` left join group_site on group_site.hostname = site.hostname left join status_last on site.hostname = status_last.hostname where group_site.groupid = ?";
     $stmt = $mysqli->prepare($q);
     $stmt->bind_param("i", $groupid);
 }
 $stmt->execute();
 if ($groupid == 0) {
     $cnt = 0;
-    $stmt->bind_result($hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
+    $stmt->bind_result($hostname, $name, $dnssec, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 } else 
-    $stmt->bind_result($cnt, $hostname, $name, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
+    $stmt->bind_result($cnt, $hostname, $name, $dnssec, $ipv4, $httpsv4, $http2v4, $aaaa, $ipv6, $httpsv6, $http2v6);
 $stmt->store_result();
 $isfirst = 1;
 while ($stmt->fetch()) {
@@ -61,6 +61,7 @@ while ($stmt->fetch()) {
     echo "{ \"cnt\": ".$cnt.", ";
     echo "\"hostname\": \"$hostname\", ";
     echo "\"name\": \"$name\", ";
+    echo "\"dnssec\": "; echo intval($dnssec); echo ",";
     echo "\"ipv4\": "; echo intval($ipv4); echo ",";
     echo "\"httpsv4\": "; echo intval($httpsv4); echo ",";
     echo "\"http2v4\": "; echo intval($http2v4); echo ",";
@@ -69,7 +70,7 @@ while ($stmt->fetch()) {
     echo "\"httpsv6\": "; echo intval($httpsv6); echo ",";
     echo "\"http2v6\": "; echo intval($http2v6); echo ",";
     echo "\"score\": ";
-    $score = ($ipv4 * 4 + $httpsv4 + $http2v4 + $aaaa + $ipv6 + $httpsv6 + $http2v6) * 10;
+    $score = ($dnssec + $ipv4 * 3 + $httpsv4 + $http2v4 + $aaaa + $ipv6 + $httpsv6 + $http2v6) * 10;
     if ($score == 100)
         $score += get_addon($hostname);
     echo $score;

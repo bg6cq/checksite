@@ -31,10 +31,10 @@ function get_groupavg($id)
 {
     global $mysqli;
     if($id == 0) {
-        $q = "select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from status_last";
+        $q = "select avg(status_last.dnssec + status_last.ipv4 * 3 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from status_last";
         $stmt = $mysqli->prepare($q);
     } else {
-        $q = "select avg(status_last.ipv4 * 4 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
+        $q = "select avg(status_last.dnssec + status_last.ipv4 * 3 + status_last.httpsv4 + status_last.http2v4 + status_last.aaaa + status_last.ipv6 + status_last.httpsv6 + status_last.http2v6) * 10 from `group` left join group_site on group.id = group_site.groupid left join status_last on group_site.hostname = status_last.hostname where group.id = ?";
         $stmt = $mysqli->prepare($q);
         $stmt->bind_param("i", $id);
     }
@@ -85,7 +85,7 @@ $stmt->close();
     <h5 class="card-title"></h5>
     <p class="card-text">
       <table border=1 cellspacing=0 id="myTable" class="display">
-<thead><th></th><th>单位</th><th>网站</th><th>v4 HTTP</th><th>v4 HTTPS</th><th>v4 HTTP2</th><th>v6解析</th><th>v6 HTTP</th><th>v6 HTTPS</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
+<thead><th></th><th>单位</th><th>网站</th><th>DNSSEC</th><th>v4 HTTP</th><th>v4 HTTPS</th><th>v4 HTTP2</th><th>v6解析</th><th>v6 HTTP</th><th>v6 HTTPS</th><th>v6 HTTP2</th><th>评分</th></tr></thead><tbody>
       </tbody></table>
     </p>
   </div>
@@ -113,6 +113,7 @@ $(document).ready(function () {
                 val.cnt,
                 "<a href=http://" + val.hostname + " target=_blank>" + val.name + "</a>",
                 "<a href=log.php?h=" + val.hostname + ">" + val.hostname + "</a>",
+                val.dnssec? "<img src=ok.png>": "",
                 val.ipv4? "<img src=ok.png>": "",
                 val.httpsv4? "<img src=ok.png>": "",
                 val.http2v4? "<img src=ok.png>": "",
@@ -127,11 +128,11 @@ $(document).ready(function () {
         var t = $('#myTable').DataTable({
             paging: false,
 	    fixedHeader: true,
-            "order": [[ 10, 'desc' ]],
+            "order": [[ 11, 'desc' ]],
             data: resultData,
             'columnDefs': [
                 {
-                     "targets": [0,3,4,5,6,7,8,9,10],
+                     "targets": [0,3,4,5,6,7,8,9,10,11],
                     "className": "text-center"
                 },
                 {
