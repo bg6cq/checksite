@@ -30,7 +30,7 @@
 国际商报	www.comnews.cn
 中国文化报	www.ccdy.cn
 金融时报社	www.financialnews.com.cn
-中国审计报社	www.icnao.cnnews
+中国审计报社	www.icnao.cn
 中国税务报社 	www.ctaxnews.com.cn
 中国工商报社	www.cicn.com.cn
 中国消费者报社	www.ccn.com.cn
@@ -63,7 +63,7 @@
 中国外汇管理杂志社	www.chinaforex.com.cn
 京报网	www.bjd.com.cn
 天津网	www.tianjinwe.com
-解放网	www.jfdaily.comhome
+解放网	www.jfdaily.com
 华龙网	www.cqnews.net
 河北新闻网	www.hebnews.cn
 山西新闻网	www.sxrb.com

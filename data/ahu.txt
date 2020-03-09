@@ -11,13 +11,14 @@
 安徽工程大学	www.ahpu.edu.cn
 河海大学文天学院	www.hhuwtian.edu.cn
 安徽大学	www.ahu.edu.cn
+安徽大学i	i.ahu.edu.cn
 安徽中医药大学	www.ahtcm.edu.cn
 淮北师范大学	www.chnu.edu.cn
 淮南联合大学	www.hnuu.edu.cn
 安徽工业大学	www.ahut.edu.cn
 安徽科技学院	www.ahstu.edu.cn
 蚌埠医学院	www.bbmc.edu.cn
-阜阳师范学院	www.fync.edu.cn
+阜阳师范大学	www.fynu.edu.cn
 安庆师范大学	www.aqnu.edu.cn
 黄山学院	www.hsu.edu.cn
 皖南医学院	www.wnmc.edu.cn

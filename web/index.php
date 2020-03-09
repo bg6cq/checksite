@@ -111,7 +111,7 @@ $(document).ready(function () {
         $.each(data['myTable'], function(key, val) {
             resultData.push([
                 val.cnt,
-                "<a href=http://" + val.hostname + " target=_blank>" + val.name + "</a>",
+                val.name,
                 "<a href=log.php?h=" + val.hostname + ">" + val.hostname + "</a>",
                 val.dnssec? "<img src=ok.png>": "",
                 val.ipv4? "<img src=ok.png>": "",

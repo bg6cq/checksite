@@ -1,4 +1,4 @@
-MIT web.mit.edu
+MIT www.mit.edu
 斯坦福 www.stanford.edu
 哈佛 www.harvard.edu
 Caltech www.caltech.edu

@@ -1,7 +1,6 @@
 福建工程学院 www.fjut.edu.cn
 深圳大学 www.szu.edu.cn
 安徽机电职业技术学院 www.ahcme.edu.cn
-安庆师范大学 www.aqnu.edu.cn
 重庆文理学院 www.cqwu.edu.cn
 上海外国语大学 elearning.shisu.edu.cn
 镇江高等专科学校 www.zjc.edu.cn
@@ -13,3 +12,13 @@
 济南大学 www.ujn.edu.cn
 广西师范大学 www.gxnu.edu.cn
 青岛职业技术学院 www.qtc.edu.cn
+肇庆学院 www.zqu.edu.cn
+桂林师范高等专科学校 www.glnc.edu.cn
+桂林电子科技大学 www.guet.edu.cn
+山东女子学院 www.sdwu.edu.cn
+河池学院 www.hcnu.edu.cn
+广州医科大学 www.gzhmu.edu.cn
+北方工业大学 www.ncut.edu.cn
+许昌学院 www.xcu.edu.cn
+安阳师范学院 www.aynu.edu.cn
+桂林航天工业学院 www.guat.edu.cn

@@ -9,5 +9,5 @@
 99 港澳台高校 gat.txt 3
 100 CDN厂商 cdn.txt 2
 101 互联网企业 dotcom.txt 2
-102 媒体 meiti.txt 2
+#102 媒体 meiti.txt 2
 199 C9招生网 c9zs.txt 2

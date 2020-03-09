@@ -1,7 +1,7 @@
 阿里云 www.aliyun.com
-腾讯云 www.qcloud.com
+腾讯云 cloud.tencent.com
 百度云 cloud.baidu.com
-网宿科技 www.chinanetcenter.com
+网宿科技 www.wangsu.com
 蓝汛 www.chinacache.com
 金山云 www.ksyun.com
 UCloud www.ucloud.cn

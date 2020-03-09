@@ -52,7 +52,7 @@
 南京农业大学	www.njau.edu.cn
 南京信息工程大学	www.nuist.edu.cn
 南京林业大学	www.njfu.edu.cn
-南京中医药大学	www.njutcm.edu.cn
+南京中医药大学	www.njucm.edu.cn
 中国药科大学	www.cpu.edu.cn
 南京师范大学	www.njnu.edu.cn
 中国美术学院	www.caa.edu.cn
