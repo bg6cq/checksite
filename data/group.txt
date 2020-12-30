@@ -6,6 +6,7 @@
 4 一流学科高校 cu2.txt 2
 5 其他高校 cuo.txt 2
 6 安徽省高校 ahu.txt 2
+7 安徽省地市教育局及厅属中专学校 aht.txt 4
 99 港澳台高校 gat.txt 3
 100 CDN厂商 cdn.txt 2
 101 互联网企业 dotcom.txt 2

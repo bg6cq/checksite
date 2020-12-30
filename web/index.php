@@ -48,7 +48,7 @@ function get_groupavg($id)
 
 @$groupid = $_REQUEST["groupid"];
 if ($groupid == "")
-    $groupid = 0;
+    $groupid = 6;
 $my_name = "所有网站";
 
 $q = "select id, name from `group` order by id";
@@ -56,7 +56,7 @@ $stmt = $mysqli->prepare($q);
 $stmt->execute();
 $stmt->bind_result($id, $name);
 $stmt->store_result();
-echo "[ <a href=index.php>所有网站(";
+echo "[ <a href=index.php?groupid=0>所有网站(";
 echo get_groupavg(0);
 echo ")</a> ";
 while ($stmt->fetch()) {

@@ -32,7 +32,7 @@ echo "\"endDatetime\": \"$lasttm\",\n";
 
 $groupid = $_REQUEST["groupid"];
 if ($groupid == "")
-    $groupid = 0;
+    $groupid = 6;
 
 echo "\"myTable\": [\n";
 if ($groupid == 0) {
