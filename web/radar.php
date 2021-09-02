@@ -5,7 +5,7 @@
    </head>
    <body style="height: 100%; margin: 0">
        <div id="container" style="height: 100%"></div>
-       <script type="text/javascript" src="//echartsjs.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="//cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
        <script type="text/javascript">
 var dom = document.getElementById("container");
 var myChart = echarts.init(dom);

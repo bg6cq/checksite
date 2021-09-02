@@ -1,7 +1,7 @@
 中国科学技术大学	www.ustc.edu.cn
 安徽医科大学	www.ahmu.edu.cn
 安徽建筑大学	www.ahjzu.edu.cn
-安徽广播电视大学	www.ahou.edu.cn
+安徽开放大学	www.ahou.edu.cn
 安徽信息工程学院	www.aiit.edu.cn
 合肥工业大学	www.hfut.edu.cn
 安徽农业大学	www.ahau.edu.cn
@@ -73,7 +73,7 @@
 安徽交通职业技术学院	www.ahctc.com
 铜陵职业技术学院	www.tlpt.edu.cn
 阜阳幼儿师范高等专科学校	www.fypec.edu.cn
-安徽建筑大学城市建设学院	www.ajduc.edu.cn
+合肥城市学院	www.ajduc.edu.cn
 安徽新闻出版职业技术学院	www.ahcbxy.edu.cn
 安徽广播影视职业技术学院	www.amtc.edu.cn
 亳州职业技术学院	www.bzy.edu.cn
@@ -94,7 +94,7 @@
 安徽矿业职业技术学院	www.anhky.com
 安徽林业职业技术学院	www.ahlyxy.cn
 安徽绿海商务职业学院	www.lhub.cn
-安徽农业大学经济技术学院	jjjs.ahau.edu.cn
+合肥经济学院	www.ahauetc.cn
 安徽汽车职业技术学院	www.jacedu.cn
 安徽涉外经济职业学院	www.ahaec-edu.cn
 安徽师范大学皖江学院	wjcollege.ahnu.edu.cn
