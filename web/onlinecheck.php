@@ -92,7 +92,7 @@ $httpsv6 = 0;
 $http2v4 = 0;
 $http2v6 = 0;
 
-echo "<table width=200 border=1 cellspacing=0><th width=130>测试项目</th><th width=70>结果</th></tr>\n";
+echo "<table width=400 border=1 cellspacing=0><th width=130>测试项目</th><th width=270>结果</th></tr>\n";
 echo "<tr><td>DNSSEC</td><td align=center>";
 //检查DNSSEC
 $retval = 1;
@@ -107,6 +107,15 @@ else
 echo "</td></tr>\n";
 ob_flush();
 flush();
+
+echo "<tr><td>IPv4解析</th><td><pre>";
+// 解析A
+$msg = system("host -t A $hostname", $retval);
+//echo $msg;
+echo "</pre></td></tr>";
+ob_flush();
+flush();
+
 
 echo "<tr><td>IPv4 HTTP</td><td align=center>";
 //检查httpv4
@@ -153,6 +162,15 @@ else
 echo "</td></tr>\n";
 ob_flush();
 flush();
+
+echo "<tr><td>IPv6解析</th><td><pre>";
+// 解析A
+$msg = system("host -t AAAA $hostname ", $retval);
+//echo $msg;
+echo "</pre></td></tr>";
+ob_flush();
+flush();
+
 
 #检查是否有IPv6解析
 #检查http IPv6是否可以访问
