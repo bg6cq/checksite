@@ -70,7 +70,7 @@ $stmt->close();
 </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.6.4.slim.min.js"></script>
+    <script src="js/jquery-3.7.0.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='js/jquery.dataTables.min.js'></script>
